@@ -201,8 +201,6 @@ class NativeConnection extends BaseConnection {
         ListenerType.fromValue(type),
         data,
       );
-
-      calloc.free(data);
     }
 
     callback = ffi.NativeCallable<CBSISSFunc>.listener(onResponse); // Create a listener for the callback
@@ -258,8 +256,6 @@ class NativeConnection extends BaseConnection {
 
       debugPrint('uploadLogs progress: $current, ${current / size}');
       onProgressListener?.onProgress(current, size);
-
-      calloc.free(values);
     }
 
     callback = ffi.NativeCallable<CBSISSFunc>.listener(onResponse); // Create a listener for the callback

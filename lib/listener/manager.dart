@@ -117,7 +117,6 @@ class ListenerManager {
       }
 
       ListenerManager().emitEvent(type, data: data.toDartString());
-      calloc.free(data);
     }
 
     callback = ffi.NativeCallable<CBISFunc>.listener(onResponse);
@@ -137,7 +136,6 @@ class ListenerManager {
       }
 
       ListenerManager().emitEvent(type, data: data.toDartString());
-      calloc.free(data);
     }
 
     callback = ffi.NativeCallable<CBISFunc>.listener(onResponse);
@@ -156,7 +154,6 @@ class ListenerManager {
         return;
       }
       ListenerManager().emitEvent(type, data: data.toDartString());
-      calloc.free(data);
     }
 
     callback = ffi.NativeCallable<CBISFunc>.listener(onResponse);
@@ -175,7 +172,6 @@ class ListenerManager {
       }
 
       ListenerManager().emitEvent(type, data: data.toDartString());
-      calloc.free(data);
     }
 
     callback = ffi.NativeCallable<CBISFunc>.listener(onResponse);
@@ -194,7 +190,6 @@ class ListenerManager {
         return;
       }
       ListenerManager().emitEvent(type, data: data.toDartString());
-      calloc.free(data);
     }
 
     callback = ffi.NativeCallable<CBISFunc>.listener(onResponse);

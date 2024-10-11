@@ -241,14 +241,12 @@ class NativeConversation extends BaseConversation {
     //   if (errorCode > 0) {
     //     debugPrint('getInputStates failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
     //     completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-    //     calloc.free(errorMsg);
     //   } else {
     //     debugPrint('getInputStates success: ${operationID.toDartString()}, $errorCode');
     //     List<int>? states = parseInputStates(data);
     //     completer.complete(states);
     //   }
 
-    //   calloc.free(operationID);
     //   callback.close();
     // }
 

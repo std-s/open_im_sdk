@@ -28,7 +28,6 @@ class _MyAppState extends State<MyApp> {
         wsAddr: 'ws://172.16.8.48:10001',
         dataDir: dic.path,
         logFilePath: '${dic.path}/log',
-        platformID: IMPlatform.xos,
       );
       OpenIM.manager.connection.initSDK(params);
 

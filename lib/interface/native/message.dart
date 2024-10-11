@@ -877,7 +877,6 @@ extension MessageExt on Message {
           description.toNativeChar(),
         );
     final nativeMap = jsonDecode(nativeMsg.toDartString());
-    calloc.free(nativeMsg);
 
     return Message.fromJson(nativeMap);
   }
@@ -894,7 +893,6 @@ extension MessageExt on Message {
         );
 
     final nativeMap = jsonDecode(nativeMsg.toDartString());
-    calloc.free(nativeMsg);
 
     return Message.fromJson(nativeMap);
   }
@@ -921,7 +919,6 @@ extension MessageExt on Message {
           );
 
       final nativeMap = jsonDecode(nativeMsg.toDartString());
-      calloc.free(nativeMsg);
 
       return Message.fromJson(nativeMap);
     } else {
@@ -932,7 +929,6 @@ extension MessageExt on Message {
           );
 
       final nativeMap = jsonDecode(nativeMsg.toDartString());
-      calloc.free(nativeMsg);
 
       return Message.fromJson(nativeMap);
     }
@@ -949,7 +945,6 @@ extension MessageExt on Message {
         );
 
     final nativeMap = jsonDecode(nativeMsg.toDartString());
-    calloc.free(nativeMsg);
 
     return Message.fromJson(nativeMap);
   }
@@ -964,7 +959,6 @@ extension MessageExt on Message {
         );
 
     final nativeMap = jsonDecode(nativeMsg.toDartString());
-    calloc.free(nativeMsg);
 
     return Message.fromJson(nativeMap);
   }
@@ -985,7 +979,6 @@ extension MessageExt on Message {
           );
 
       final nativeMap = jsonDecode(nativeMsg.toDartString());
-      calloc.free(nativeMsg);
 
       return Message.fromJson(nativeMap);
     } else {
@@ -995,7 +988,6 @@ extension MessageExt on Message {
           );
 
       final nativeMap = jsonDecode(nativeMsg.toDartString());
-      calloc.free(nativeMsg);
 
       return Message.fromJson(nativeMap);
     }
@@ -1017,7 +1009,6 @@ extension MessageExt on Message {
         );
 
     final nativeMap = jsonDecode(nativeMsg.toDartString());
-    calloc.free(nativeMsg);
 
     return Message.fromJson(nativeMap);
   }
@@ -1036,7 +1027,6 @@ extension MessageExt on Message {
         );
 
     final nativeMap = jsonDecode(nativeMsg.toDartString());
-    calloc.free(nativeMsg);
 
     return Message.fromJson(nativeMap);
   }
@@ -1051,7 +1041,6 @@ extension MessageExt on Message {
         );
 
     final nativeMap = jsonDecode(nativeMsg.toDartString());
-    calloc.free(nativeMsg);
 
     return Message.fromJson(nativeMap);
   }
@@ -1064,7 +1053,6 @@ extension MessageExt on Message {
         );
 
     final nativeMap = jsonDecode(nativeMsg.toDartString());
-    calloc.free(nativeMsg);
 
     return Message.fromJson(nativeMap);
   }
@@ -1082,7 +1070,6 @@ extension MessageExt on Message {
           );
 
       final nativeMap = jsonDecode(nativeMsg.toDartString());
-      calloc.free(nativeMsg);
 
       return Message.fromJson(nativeMap);
     } else {
@@ -1093,7 +1080,6 @@ extension MessageExt on Message {
           );
 
       final nativeMap = jsonDecode(nativeMsg.toDartString());
-      calloc.free(nativeMsg);
 
       return Message.fromJson(nativeMap);
     }
@@ -1111,7 +1097,6 @@ extension MessageExt on Message {
         );
 
     final nativeMap = jsonDecode(nativeMsg.toDartString());
-    calloc.free(nativeMsg);
 
     return Message.fromJson(nativeMap);
   }
@@ -1131,7 +1116,6 @@ extension MessageExt on Message {
         );
 
     final nativeMap = jsonDecode(nativeMsg.toDartString());
-    calloc.free(nativeMsg);
 
     return Message.fromJson(nativeMap);
   }
@@ -1143,7 +1127,6 @@ extension MessageExt on Message {
         );
 
     final nativeMap = jsonDecode(nativeMsg.toDartString());
-    calloc.free(nativeMsg);
 
     return Message.fromJson(nativeMap);
   }
@@ -1169,7 +1152,6 @@ extension MessageExt on Message {
           );
 
       final nativeMap = jsonDecode(nativeMsg.toDartString());
-      calloc.free(nativeMsg);
 
       return Message.fromJson(nativeMap);
     } else {
@@ -1182,7 +1164,6 @@ extension MessageExt on Message {
           );
 
       final nativeMap = jsonDecode(nativeMsg.toDartString());
-      calloc.free(nativeMsg);
 
       return Message.fromJson(nativeMap);
     }
@@ -1200,7 +1181,6 @@ extension MessageExt on Message {
         );
 
     final nativeMap = jsonDecode(nativeMsg.toDartString());
-    calloc.free(nativeMsg);
 
     return Message.fromJson(nativeMap);
   }
