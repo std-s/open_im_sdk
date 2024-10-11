@@ -33,9 +33,6 @@ class NativeConnection extends BaseConnection {
     void onResponse(int b, ffi.Pointer<ffi.Char> data) {
       debugPrint('Connect onResponse: $b ${data == ffi.nullptr ? 'data is null' : data.toDartString()}');
 
-      if (data == ffi.nullptr) {
-        return;
-      }
       ListenerManager().emitEvent(b, data: data.toDartString());
       listener?.handleListenerEvent(ListenerType.fromValue(b), data.toDartString());
     }

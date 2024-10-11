@@ -112,10 +112,6 @@ class ListenerManager {
     void onResponse(int type, ffi.Pointer<ffi.Char> data) {
       debugPrint('setSDKUserListener onResponse: $type, ${data == ffi.nullptr ? 'data is null' : data.toDartString()}');
 
-      if (data == ffi.nullptr) {
-        return;
-      }
-
       ListenerManager().emitEvent(type, data: data.toDartString());
     }
 
@@ -130,10 +126,6 @@ class ListenerManager {
     void onResponse(int type, ffi.Pointer<ffi.Char> data) {
       debugPrint(
           'setSDKConversationListener onResponse: $type, ${data == ffi.nullptr ? 'data is null' : data.toDartString()}');
-
-      if (data == ffi.nullptr) {
-        return;
-      }
 
       ListenerManager().emitEvent(type, data: data.toDartString());
     }
@@ -150,9 +142,6 @@ class ListenerManager {
       debugPrint(
           'setSDKAdvancedMsgListener onResponse: $type, ${data == ffi.nullptr ? 'data is null' : data.toDartString()}');
 
-      if (data == ffi.nullptr) {
-        return;
-      }
       ListenerManager().emitEvent(type, data: data.toDartString());
     }
 
@@ -167,9 +156,6 @@ class ListenerManager {
     void onResponse(int type, ffi.Pointer<ffi.Char> data) {
       debugPrint(
           'setSDKFriendshipListener onResponse: $type, ${data == ffi.nullptr ? 'data is null' : data.toDartString()}');
-      if (data == ffi.nullptr) {
-        return;
-      }
 
       ListenerManager().emitEvent(type, data: data.toDartString());
     }
@@ -186,9 +172,6 @@ class ListenerManager {
       debugPrint(
           'setSDKGroupListener onResponse: $type, ${data == ffi.nullptr ? 'data is null' : data.toDartString()}');
 
-      if (data == ffi.nullptr) {
-        return;
-      }
       ListenerManager().emitEvent(type, data: data.toDartString());
     }
 
