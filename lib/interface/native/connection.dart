@@ -22,7 +22,7 @@ class NativeConnection extends BaseConnection {
   /// Initialize the SDK
   @override
   Future<bool> initSDK(InitConfig config, {OnConnectListener? listener, String? operationID}) async {
-    config.platformID = IMPlatform.android;
+    config.platformID ??= IMPlatform.current;
     config.dataDir ??= (await getApplicationDocumentsDirectory()).path;
     config.logFilePath ??= config.dataDir;
 
@@ -30,12 +30,14 @@ class NativeConnection extends BaseConnection {
 
     late final ffi.NativeCallable<CBISFunc> callback;
 
-    void onResponse(int b, ffi.Pointer<ffi.Char> c) {
-      debugPrint('Connect onResponse: $b ${c.toDartString()}');
-      ListenerManager().emitEvent(b, data: c.toDartString());
-      listener?.handleListenerEvent(ListenerType.fromValue(b), c.toDartString());
+    void onResponse(int b, ffi.Pointer<ffi.Char> data) {
+      debugPrint('Connect onResponse: $b ${data == ffi.nullptr ? 'data is null' : data.toDartString()}');
 
-      calloc.free(c);
+      if (data == ffi.nullptr) {
+        return;
+      }
+      ListenerManager().emitEvent(b, data: data.toDartString());
+      listener?.handleListenerEvent(ListenerType.fromValue(b), data.toDartString());
     }
 
     callback = ffi.NativeCallable<CBISFunc>.listener(onResponse);
@@ -67,14 +69,11 @@ class NativeConnection extends BaseConnection {
       if (errorCode > 0) {
         debugPrint('login failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('login success: ${operationID.toDartString()}, $errorCode, ${data.toDartString()}');
         completer.complete(true);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -100,14 +99,11 @@ class NativeConnection extends BaseConnection {
       if (errorCode > 0) {
         debugPrint('loginout failed: $operationID, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('loginout success: $operationID, $errorCode, ${data.toDartString()}');
         completer.complete(true);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -150,13 +146,11 @@ class NativeConnection extends BaseConnection {
       if (errorCode > 0) {
         debugPrint('updateFcmToken failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg); // Free the allocated error message
       } else {
         debugPrint('updateFcmToken success: ${operationID.toDartString()}, $errorCode');
         completer.complete(true);
       }
 
-      calloc.free(operationID); // Free the allocated operation ID
       callback.close(); // Close the callback to free resources
     }
 
@@ -193,13 +187,11 @@ class NativeConnection extends BaseConnection {
       if (errorCode > 0) {
         debugPrint('uploadFile failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg); // Free the allocated error message
       } else {
         debugPrint('uploadFile success: ${operationID.toDartString()}, $errorCode');
         completer.complete(true);
       }
 
-      calloc.free(operationID); // Free the allocated operation ID
       callback.close(); // Close the callback to free resources
     }
 
@@ -251,13 +243,11 @@ class NativeConnection extends BaseConnection {
       if (errorCode > 0) {
         debugPrint('uploadLogs failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg); // Free the allocated error message
       } else {
         debugPrint('uploadLogs success: ${operationID.toDartString()}, $errorCode');
         completer.complete(true);
       }
 
-      calloc.free(operationID); // Free the allocated operation ID
       callback.close(); // Close the callback to free resources
     }
 
@@ -305,13 +295,11 @@ class NativeConnection extends BaseConnection {
       if (errorCode > 0) {
         debugPrint('logs failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg); // Free the allocated error message
       } else {
         debugPrint('logs success: ${operationID.toDartString()}, $errorCode');
         completer.complete(true);
       }
 
-      calloc.free(operationID); // Free the allocated operation ID
       callback.close(); // Close the callback to free resources
     }
 

@@ -48,14 +48,11 @@ class NativeConversation extends BaseConversation {
       if (errorCode > 0) {
         debugPrint('changeInputStates failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('changeInputStates success: ${operationID.toDartString()}, $errorCode');
         completer.complete();
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -86,14 +83,11 @@ class NativeConversation extends BaseConversation {
         debugPrint(
             'clearConversationAndDeleteAllMsg failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('clearConversationAndDeleteAllMsg success: ${operationID.toDartString()}, $errorCode');
         completer.complete();
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -131,14 +125,11 @@ class NativeConversation extends BaseConversation {
         debugPrint(
             'deleteConversationAndDeleteAllMsg failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('deleteConversationAndDeleteAllMsg success: ${operationID.toDartString()}, $errorCode');
         completer.complete();
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -167,16 +158,13 @@ class NativeConversation extends BaseConversation {
         debugPrint(
             'getAllConversationList failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('getAllConversationList success: ${operationID.toDartString()}, $errorCode');
         // Convert the received data into List<ConversationInfo>
         final list = jsonDecode(data.toDartString()).map((e) => ConversationInfo.fromJson(e)).toList();
         completer.complete(list);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -217,15 +205,12 @@ class NativeConversation extends BaseConversation {
         debugPrint(
             'getConversationListSplit failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('getConversationListSplit success: ${operationID.toDartString()}, $errorCode');
         final list = jsonDecode(data.toDartString()).map((e) => ConversationInfo.fromJson(e)).toList();
         completer.complete(list);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -294,15 +279,12 @@ class NativeConversation extends BaseConversation {
         debugPrint(
             'getMultipleConversation failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('getMultipleConversation success: ${operationID.toDartString()}, $errorCode');
         final list = jsonDecode(data.toDartString()).map((e) => ConversationInfo.fromJson(e)).toList();
         completer.complete(list);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -332,16 +314,13 @@ class NativeConversation extends BaseConversation {
       if (errorCode > 0) {
         debugPrint('getOneConversation failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('getOneConversation success: ${operationID.toDartString()}, $errorCode');
         final list = jsonDecode(data.toDartString()).map((e) => ConversationInfo.fromJson(e)).toList();
 
         completer.complete(list);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -371,14 +350,11 @@ class NativeConversation extends BaseConversation {
         debugPrint(
             'getTotalUnreadMsgCount failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('getTotalUnreadMsgCount success: ${operationID.toDartString()}, $errorCode');
         completer.complete(data.address); // Assuming data contains the count as an integer
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -406,14 +382,11 @@ class NativeConversation extends BaseConversation {
         debugPrint(
             'hideAllConversations failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('hideAllConversations success: ${operationID.toDartString()}, $errorCode');
         completer.complete();
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -441,14 +414,11 @@ class NativeConversation extends BaseConversation {
       if (errorCode > 0) {
         debugPrint('hideConversation failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('hideConversation success: ${operationID.toDartString()}, $errorCode');
         completer.complete();
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -478,14 +448,11 @@ class NativeConversation extends BaseConversation {
         debugPrint(
             'markConversationMessageAsRead failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('markConversationMessageAsRead success: ${operationID.toDartString()}, $errorCode');
         completer.complete();
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -538,14 +505,11 @@ class NativeConversation extends BaseConversation {
       if (errorCode > 0) {
         debugPrint('setConversation failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('setConversation success: ${operationID.toDartString()}, $errorCode');
         completer.complete();
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -577,14 +541,11 @@ class NativeConversation extends BaseConversation {
         debugPrint(
             'setConversationDraft failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('setConversationDraft success: ${operationID.toDartString()}, $errorCode');
         completer.complete();
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 

@@ -33,14 +33,11 @@ class NativeFriendship extends BaseFriendship {
         debugPrint(
             'acceptFriendApplication failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('acceptFriendApplication success: ${operationID.toDartString()}');
         completer.complete();
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -74,14 +71,11 @@ class NativeFriendship extends BaseFriendship {
           'addBlacklist failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}',
         );
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('addBlacklist success: ${operationID.toDartString()}');
         completer.complete(true);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -113,14 +107,11 @@ class NativeFriendship extends BaseFriendship {
           'addFriend failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}',
         );
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('addFriend success: ${operationID.toDartString()}');
         completer.complete(true);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -155,15 +146,12 @@ class NativeFriendship extends BaseFriendship {
           'checkFriend failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}',
         );
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('checkFriend success: ${operationID.toDartString()}');
         final result = jsonDecode(data.toDartString()).map((e) => FriendshipInfo.fromJson(e)).toList();
         completer.complete(result);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -193,14 +181,11 @@ class NativeFriendship extends BaseFriendship {
           'deleteFriend failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}',
         );
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('deleteFriend success: ${operationID.toDartString()}');
         completer.complete(true);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -229,15 +214,12 @@ class NativeFriendship extends BaseFriendship {
           'getBlacklist failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}',
         );
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('getBlacklist success: ${operationID.toDartString()}');
         final result = jsonDecode(data.toDartString()).map((e) => BlacklistInfo.fromJson(e)).toList();
         completer.complete(result);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -265,15 +247,12 @@ class NativeFriendship extends BaseFriendship {
           'getFriendApplicationListAsApplicant failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}',
         );
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('getFriendApplicationListAsApplicant success: ${operationID.toDartString()}');
         final result = jsonDecode(data.toDartString()).map((e) => FriendApplicationInfo.fromJson(e)).toList();
         completer.complete(result);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -301,15 +280,12 @@ class NativeFriendship extends BaseFriendship {
           'getFriendApplicationListAsRecipient failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}',
         );
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('getFriendApplicationListAsRecipient success: ${operationID.toDartString()}');
         final result = jsonDecode(data.toDartString()).map((e) => FriendApplicationInfo.fromJson(e)).toList();
         completer.complete(result);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -349,15 +325,12 @@ class NativeFriendship extends BaseFriendship {
           'getFriendListMap failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}',
         );
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('getFriendListMap success: ${operationID.toDartString()}');
         final result = jsonDecode(data.toDartString());
         completer.complete(result);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -400,15 +373,12 @@ class NativeFriendship extends BaseFriendship {
           'getFriendListPageMap failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}',
         );
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('getFriendListPageMap success: ${operationID.toDartString()}');
         final result = jsonDecode(data.toDartString());
         completer.complete(result);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -441,15 +411,12 @@ class NativeFriendship extends BaseFriendship {
           'getFriendsInfo failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}',
         );
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('getFriendsInfo success: ${operationID.toDartString()}');
         final result = jsonDecode(data.toDartString()).map((e) => PublicUserInfo.fromJson(e)).toList();
         completer.complete(result);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -481,14 +448,11 @@ class NativeFriendship extends BaseFriendship {
           'refuseFriendApplication failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}',
         );
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('refuseFriendApplication success: ${operationID.toDartString()}');
         completer.complete();
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -522,14 +486,11 @@ class NativeFriendship extends BaseFriendship {
           'removeBlacklist failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}',
         );
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('removeBlacklist success: ${operationID.toDartString()}');
         completer.complete(true);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -562,15 +523,12 @@ class NativeFriendship extends BaseFriendship {
           'searchFriends failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}',
         );
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('searchFriends success: ${operationID.toDartString()}');
         final result = jsonDecode(data.toDartString()).map((e) => SearchFriendsInfo.fromJson(e)).toList();
         completer.complete(result);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -609,14 +567,11 @@ class NativeFriendship extends BaseFriendship {
           'setFriendRemark failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}',
         );
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('setFriendRemark success: ${operationID.toDartString()}');
         completer.complete();
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -648,14 +603,11 @@ class NativeFriendship extends BaseFriendship {
           'setFriendsEx failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}',
         );
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('setFriendsEx success: ${operationID.toDartString()}');
         completer.complete();
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -685,14 +637,11 @@ class NativeFriendship extends BaseFriendship {
           'updateFriends failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}',
         );
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('updateFriends success: ${operationID.toDartString()}');
         completer.complete();
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 

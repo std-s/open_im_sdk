@@ -257,16 +257,13 @@ class NativeMessage extends BaseMessage {
       if (errorCode > 0) {
         debugPrint('sendMessageNotOss failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         final jsonStr = data.toDartString();
         final responseMessage = Message.fromJson(jsonDecode(jsonStr));
         debugPrint('sendMesendMessageNotOssssage success: ${operationID.toDartString()}, $jsonStr');
         completer.complete(responseMessage);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -313,16 +310,13 @@ class NativeMessage extends BaseMessage {
       if (errorCode > 0) {
         debugPrint('sendMessage failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         final jsonStr = data.toDartString();
         final responseMessage = Message.fromJson(json.decode(jsonStr));
         debugPrint('sendMessage success: ${operationID.toDartString()}, $errorCode');
         completer.complete(responseMessage);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -356,14 +350,11 @@ class NativeMessage extends BaseMessage {
         debugPrint(
             'deleteMessageFromLocalStorage failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('deleteMessageFromLocalStorage success: ${operationID.toDartString()}, $errorCode');
         completer.complete();
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -394,14 +385,11 @@ class NativeMessage extends BaseMessage {
         debugPrint(
             'deleteMessageFromLocalAndSvr failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('deleteMessageFromLocalAndSvr success: ${operationID.toDartString()}, $errorCode');
         completer.complete();
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -430,14 +418,11 @@ class NativeMessage extends BaseMessage {
         debugPrint(
             'deleteAllMsgFromLocal failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('deleteAllMsgFromLocal success: ${operationID.toDartString()}, $errorCode');
         completer.complete();
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -464,14 +449,11 @@ class NativeMessage extends BaseMessage {
         debugPrint(
             'deleteAllMsgFromLocalAndSvr failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('deleteAllMsgFromLocalAndSvr success: ${operationID.toDartString()}, $errorCode');
         completer.complete();
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -505,16 +487,13 @@ class NativeMessage extends BaseMessage {
         debugPrint(
             'insertGroupMessageToLocalStorage failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         final jsonStr = data.toDartString();
         final responseMessage = Message.fromJson(json.decode(jsonStr));
         debugPrint('insertGroupMessageToLocalStorage success: ${operationID.toDartString()}, $errorCode');
         completer.complete(responseMessage);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -547,16 +526,13 @@ class NativeMessage extends BaseMessage {
         debugPrint(
             'insertSingleMessageToLocalStorage failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         final jsonStr = data.toDartString();
         final responseMessage = Message.fromJson(jsonDecode(jsonStr));
         debugPrint('insertSingleMessageToLocalStorage success: ${operationID.toDartString()}, ${data.toDartString()}');
         completer.complete(responseMessage);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -586,16 +562,13 @@ class NativeMessage extends BaseMessage {
       if (errorCode > 0) {
         debugPrint('findMessageList failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         final jsonStr = data.toDartString();
         final response = SearchResult.fromJson(json.decode(jsonStr));
         debugPrint('findMessageList success: ${operationID.toDartString()}, $errorCode');
         completer.complete(response);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -627,16 +600,13 @@ class NativeMessage extends BaseMessage {
         debugPrint(
             'getAdvancedHistoryMessageList failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         final jsonStr = data.toDartString();
         final responseMessage = AdvancedMessage.fromJson(json.decode(jsonStr));
         debugPrint('getAdvancedHistoryMessageList success: ${operationID.toDartString()}, $errorCode');
         completer.complete(responseMessage);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -676,16 +646,13 @@ class NativeMessage extends BaseMessage {
         debugPrint(
             'getAdvancedHistoryMessageListReverse failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         final jsonStr = data.toDartString();
         final responseMessage = AdvancedMessage.fromJson(json.decode(jsonStr));
         debugPrint('getAdvancedHistoryMessageListReverse success: ${operationID.toDartString()}, $errorCode');
         completer.complete(responseMessage);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -722,14 +689,11 @@ class NativeMessage extends BaseMessage {
       if (errorCode > 0) {
         debugPrint('revokeMessage failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('revokeMessage success: ${operationID.toDartString()}, $errorCode');
         completer.complete();
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -766,16 +730,13 @@ class NativeMessage extends BaseMessage {
       if (errorCode > 0) {
         debugPrint('searchLocalMessages failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         final jsonStr = data.toDartString();
         final searchResult = SearchResult.fromJson(json.decode(jsonStr));
         debugPrint('searchLocalMessages success: ${operationID.toDartString()}, $errorCode');
         completer.complete(searchResult);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -816,14 +777,11 @@ class NativeMessage extends BaseMessage {
       if (errorCode > 0) {
         debugPrint('setMessageLocalEx failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('setMessageLocalEx success: ${operationID.toDartString()}, $errorCode');
         completer.complete();
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -855,15 +813,12 @@ class NativeMessage extends BaseMessage {
         // If there is an error, complete the completer with an error
         debugPrint('setAppBadge failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg); // Free the allocated error message
       } else {
         // On success, just complete the completer
         debugPrint('setAppBadge success: ${operationID.toDartString()}, $errorCode');
-        completer.complete();
-        calloc.free(data); // Free the allocated data
+        completer.complete(); // Free the allocated data
       }
 
-      calloc.free(operationID); // Free the allocated operation ID
       callback.close(); // Close the callback to free resources
     }
 

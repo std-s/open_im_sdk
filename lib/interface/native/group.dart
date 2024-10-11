@@ -36,15 +36,12 @@ class NativeGroup extends BaseGroup {
       if (errorCode > 0) {
         debugPrint('inviteUserToGroup failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('inviteUserToGroup success: ${operationID.toDartString()}, $errorCode');
         final list = jsonDecode(data.toDartString()).map((e) => GroupInviteResult.fromJson(e)).toList();
         completer.complete(list);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -76,15 +73,12 @@ class NativeGroup extends BaseGroup {
       if (errorCode > 0) {
         debugPrint('kickGroupMember failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('kickGroupMember success: ${operationID.toDartString()}, $errorCode');
         final list = jsonDecode(data.toDartString()).map((e) => GroupInviteResult.fromJson(e)).toList();
         completer.complete(list);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -115,15 +109,12 @@ class NativeGroup extends BaseGroup {
       if (errorCode > 0) {
         debugPrint('getGroupMembersInfo failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('getGroupMembersInfo success: ${operationID.toDartString()}, $errorCode');
         final list = jsonDecode(data.toDartString()).map((e) => GroupMembersInfo.fromJson(e)).toList();
         completer.complete(list);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -170,15 +161,12 @@ class NativeGroup extends BaseGroup {
       if (errorCode > 0) {
         debugPrint('getJoinedGroupList failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         final json = jsonDecode(data.toDartString()) as List?;
         final list = json?.map<GroupInfo>((e) => GroupInfo.fromJson(e)).toList();
         completer.complete(list);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -208,14 +196,11 @@ class NativeGroup extends BaseGroup {
       if (errorCode > 0) {
         debugPrint('createGroup failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         final result = GroupInfo.fromJson(jsonDecode(data.toDartString()));
         completer.complete(result);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -246,13 +231,10 @@ class NativeGroup extends BaseGroup {
       if (errorCode > 0) {
         debugPrint('setGroupInfo failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         completer.complete(data.toDartString());
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -280,15 +262,12 @@ class NativeGroup extends BaseGroup {
         debugPrint(
             'getGroupApplicationListAsRecipient failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         final list =
             jsonDecode(data.toDartString()).map<GroupApplicationInfo>((e) => GroupApplicationInfo.fromJson(e)).toList();
         completer.complete(list);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -315,15 +294,12 @@ class NativeGroup extends BaseGroup {
         debugPrint(
             'getGroupApplicationListAsApplicant failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         final list =
             jsonDecode(data.toDartString()).map<GroupApplicationInfo>((e) => GroupApplicationInfo.fromJson(e)).toList();
         completer.complete(list);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -353,13 +329,10 @@ class NativeGroup extends BaseGroup {
         debugPrint(
             'acceptGroupApplication failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         completer.complete(data.toDartString());
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -392,13 +365,10 @@ class NativeGroup extends BaseGroup {
         debugPrint(
             'refuseGroupApplication failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         completer.complete(data.toDartString());
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -428,13 +398,10 @@ class NativeGroup extends BaseGroup {
       if (errorCode > 0) {
         debugPrint('dismissGroup failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         completer.complete(data.toDartString());
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -463,13 +430,10 @@ class NativeGroup extends BaseGroup {
       if (errorCode > 0) {
         debugPrint('changeGroupMute failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         completer.complete(data.toDartString());
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -501,13 +465,10 @@ class NativeGroup extends BaseGroup {
         debugPrint(
             'changeGroupMemberMute failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         completer.complete(data.toDartString());
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -544,17 +505,14 @@ class NativeGroup extends BaseGroup {
             'getGroupMemberListByJoinTime failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
 
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('getGroupMemberListByJoinTime success: ${operationID.toDartString()}, ${data.toDartString()}');
 
         final list =
             jsonDecode(data.toDartString()).map<GroupMembersInfo>((e) => GroupMembersInfo.fromJson(e)).toList();
         completer.complete(list);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -591,15 +549,12 @@ class NativeGroup extends BaseGroup {
         debugPrint(
             'getGroupMemberListMap failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('getGroupMemberListMap success: ${operationID.toDartString()}, $errorCode');
         final list = jsonDecode(data.toDartString());
         completer.complete(list);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -632,15 +587,12 @@ class NativeGroup extends BaseGroup {
             'getGroupOwnerAndAdmin failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
 
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('getGroupOwnerAndAdmin success: ${operationID.toDartString()}, ${data.toDartString()}');
         final list = jsonDecode(data.toDartString()).map((e) => GroupMembersInfo.fromJson(e)).toList();
         completer.complete(list);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -668,15 +620,12 @@ class NativeGroup extends BaseGroup {
       if (errorCode > 0) {
         debugPrint('getGroupsInfo failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('getGroupsInfo success: ${operationID.toDartString()}, ${data.toDartString()}');
         final list = jsonDecode(data.toDartString()).map((e) => GroupInfo.fromJson(e)).toList();
         completer.complete(list);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -704,15 +653,12 @@ class NativeGroup extends BaseGroup {
         debugPrint(
             'getJoinedGroupListMap failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('getJoinedGroupListMap success: ${operationID.toDartString()}, $errorCode');
         final list = jsonDecode(data.toDartString());
         completer.complete(list);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -741,15 +687,12 @@ class NativeGroup extends BaseGroup {
         debugPrint(
             'getJoinedGroupListPage failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('getJoinedGroupListPage success: ${operationID.toDartString()}, ${data.toDartString()}');
         final list = jsonDecode(data.toDartString()).map((e) => GroupInfo.fromJson(e)).toList();
         completer.complete(list);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -779,14 +722,11 @@ class NativeGroup extends BaseGroup {
       if (errorCode > 0) {
         debugPrint('getUsersInGroup failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('getUsersInGroup success: ${operationID.toDartString()}, ${data.toDartString()}');
         completer.complete(data.toDartString());
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -815,14 +755,11 @@ class NativeGroup extends BaseGroup {
       if (errorCode > 0) {
         debugPrint('isJoinedGroup failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('isJoinedGroup success: ${operationID.toDartString()}, ${data.toDartString()}');
         completer.complete(data.toDartString() == 'true');
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -853,14 +790,11 @@ class NativeGroup extends BaseGroup {
       if (errorCode > 0) {
         debugPrint('joinGroup failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('joinGroup success: ${operationID.toDartString()}, ${data.toDartString()}');
         completer.complete(data.toDartString());
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -891,14 +825,11 @@ class NativeGroup extends BaseGroup {
       if (errorCode > 0) {
         debugPrint('quitGroup failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('quitGroup success: ${operationID.toDartString()}, ${data.toDartString()}');
         completer.complete(data.toDartString());
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -952,15 +883,12 @@ class NativeGroup extends BaseGroup {
       if (errorCode > 0) {
         debugPrint('searchGroupMembers failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('searchGroupMembers success: ${operationID.toDartString()}, ${data.toDartString()}');
         final list = jsonDecode(data.toDartString());
         completer.complete(list);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -999,15 +927,12 @@ class NativeGroup extends BaseGroup {
       if (errorCode > 0) {
         debugPrint('searchGroups failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('searchGroups success: ${operationID.toDartString()}, ${data.toDartString()}');
         final list = jsonDecode(data.toDartString()).map((e) => GroupInfo.fromJson(e)).toList();
         completer.complete(list);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -1059,14 +984,11 @@ class NativeGroup extends BaseGroup {
       if (errorCode > 0) {
         debugPrint('setGroupMemberInfo failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('setGroupMemberInfo success: ${operationID.toDartString()}, ${data.toDartString()}');
         completer.complete(data.toDartString());
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -1119,14 +1041,11 @@ class NativeGroup extends BaseGroup {
       if (errorCode > 0) {
         debugPrint('transferGroupOwner failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('transferGroupOwner success: ${operationID.toDartString()}, ${data.toDartString()}');
         completer.complete(data.toDartString());
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 

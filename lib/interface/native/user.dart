@@ -28,15 +28,12 @@ class NativeUser extends BaseUser {
       if (errorCode > 0) {
         debugPrint('getUsersInfo failed: $operationID, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('getUsersInfo success: $operationID, $errorCode, ${data.toDartString()}');
         final list = jsonDecode(data.toDartString()).map((e) => PublicUserInfo.fromJson(e)).toList();
         completer.complete(list);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -65,15 +62,12 @@ class NativeUser extends BaseUser {
       if (errorCode > 0) {
         debugPrint('getSelfUserInfo failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('getSelfUserInfo success: ${operationID.toDartString()}, $errorCode, ${data.toDartString()}');
         final userInfo = UserInfo.fromJson(jsonDecode(data.toDartString()));
         completer.complete(userInfo);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -104,13 +98,11 @@ class NativeUser extends BaseUser {
       if (errorCode > 0) {
         debugPrint('setSelfInfo failed: $operationID, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('setSelfInfo success: ${operationID.toDartString()}, $errorCode');
         completer.complete(true);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -148,15 +140,12 @@ class NativeUser extends BaseUser {
       if (errorCode > 0) {
         debugPrint('subscribeUsersStatus failed: $operationID, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('subscribeUsersStatus success: $operationID, $errorCode, ${data.toDartString()}');
         final list = jsonDecode(data.toDartString()).map<UserStatusInfo>((e) => UserStatusInfo.fromJson(e)).toList();
         completer.complete(list);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -187,13 +176,11 @@ class NativeUser extends BaseUser {
       if (errorCode > 0) {
         debugPrint('unsubscribeUsersStatus failed: $operationID, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('unsubscribeUsersStatus success: $operationID, $errorCode');
         completer.complete(true);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -222,15 +209,12 @@ class NativeUser extends BaseUser {
       if (errorCode > 0) {
         debugPrint('getSubscribeUsersStatus failed: $operationID, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('getSubscribeUsersStatus success: $operationID, $errorCode, ${data.toDartString()}');
         final list = jsonDecode(data.toDartString()).map<UserStatusInfo>((e) => UserStatusInfo.fromJson(e)).toList();
         completer.complete(list);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
@@ -260,15 +244,12 @@ class NativeUser extends BaseUser {
       if (errorCode > 0) {
         debugPrint('getUserStatus failed: $operationID, $errorCode, ${errorMsg.toDartString()}');
         completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
-        calloc.free(errorMsg);
       } else {
         debugPrint('getUserStatus success: $operationID, $errorCode, ${data.toDartString()}');
         final list = jsonDecode(data.toDartString()).map<UserStatusInfo>((e) => UserStatusInfo.fromJson(e)).toList();
         completer.complete(list);
-        calloc.free(data);
       }
 
-      calloc.free(operationID);
       callback.close();
     }
 
