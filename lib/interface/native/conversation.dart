@@ -160,7 +160,8 @@ class NativeConversation extends BaseConversation {
       } else {
         debugPrint('getAllConversationList success: ${operationID.toDartString()}, $errorCode');
         // Convert the received data into List<ConversationInfo>
-        final list = jsonDecode(data.toDartString()).map((e) => ConversationInfo.fromJson(e)).toList();
+        final json = jsonDecode(data.toDartString()) as List?;
+        final list = json?.map<ConversationInfo>((e) => ConversationInfo.fromJson(e)).toList();
         completer.complete(list);
       }
 
@@ -313,9 +314,7 @@ class NativeConversation extends BaseConversation {
         completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('getOneConversation success: ${operationID.toDartString()}, $errorCode');
-        final list = jsonDecode(data.toDartString()).map((e) => ConversationInfo.fromJson(e)).toList();
-
-        completer.complete(list);
+        completer.complete(ConversationInfo.fromJson(jsonDecode(data.toDartString())));
       }
 
       callback.close();
