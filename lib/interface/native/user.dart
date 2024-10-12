@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:ffi' as ffi;
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
-import 'package:ffi/ffi.dart';
 import '../../listener/listener.dart';
 import '../../listener/manager.dart';
 import '../../utils/utils.dart';
@@ -282,6 +281,11 @@ class NativeUser extends BaseUser {
     String? operationID,
   }) {
     return setSelfInfo(globalRecvMsgOpt: status, operationID: operationID);
+  }
+
+  @override
+  String getLoginUserID({String? operationID}) {
+    return _bindings.get_login_user().toDartString();
   }
 
   @override

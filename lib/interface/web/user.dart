@@ -78,4 +78,10 @@ class WebUser extends BaseUser {
     // TODO: implement unsubscribeUsersStatus
     throw UnimplementedError();
   }
+  
+  @override
+  String getLoginUserID({String? operationID}) {
+    // TODO: implement getLoginUserID
+    throw UnimplementedError();
+  }
 }

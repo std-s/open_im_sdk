@@ -18,7 +18,7 @@ import 'interface/web/friendship.dart';
 import 'interface/web/group.dart';
 import 'interface/web/message.dart';
 import 'interface/web/user.dart';
-
+// Compatible with old versions of SDK.
 class OpenIM {
   static const version = '3.8.1';
 
@@ -52,7 +52,12 @@ class IMManager {
   late final BaseGroup group;
 
   // Compatible with old versions
+  BaseConnection get connectionManager => connection;
   BaseUser get userManager => user;
+  BaseConversation get conversationManager => conversation;
+  BaseMessage get messageManager => message;
+  BaseFriendship get friendshipManager => friendship;
+  BaseGroup get groupManager => group;
 
   void _initConnection() {
     if (kIsWeb) {

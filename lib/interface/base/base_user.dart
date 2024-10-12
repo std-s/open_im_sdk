@@ -70,4 +70,9 @@ abstract class BaseUser implements BaseListener {
     List<String> userIDs, {
     String? operationID,
   });
+
+  /// Get user ID
+  String getLoginUserID({
+    String? operationID,
+  });
 }
