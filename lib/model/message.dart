@@ -1220,16 +1220,15 @@ class RevokedInfo {
     this.sessionType,
   });
 
-  RevokedInfo.fromJson(Map<String, dynamic> json) {
+  RevokedInfo.fromJson(Map<String, dynamic> json) : sessionType = ConversationType.fromValue(json['sessionType']) {
     revokerID = json['revokerID'];
-    revokerRole = GroupRoleLevel.fromValue(json['revokerRole']);
+    revokerRole = sessionType == ConversationType.single ? null : GroupRoleLevel.fromValue(json['revokerRole']);
     revokerNickname = json['revokerNickname'];
     clientMsgID = json['clientMsgID'];
     revokeTime = json['revokeTime'];
     sourceMessageSendTime = json['sourceMessageSendTime'];
     sourceMessageSendID = json['sourceMessageSendID'];
     sourceMessageSenderNickname = json['sourceMessageSenderNickname'];
-    sessionType = ConversationType.fromValue(json['sessionType']);
   }
 
   Map<String, dynamic> toJson() {

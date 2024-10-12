@@ -23,21 +23,31 @@ extension IMPointerStringExt on ffi.Pointer<ffi.Char> {
       return ''; // Handle null pointer
     }
 
-    return cast<Utf8>().toDartString();
+    //return cast<Utf8>().toDartString();
+
+    int length = 0;
+    while (elementAt(length).value != 0) {
+      length++;
+
+    }
+    final bytes = cast<ffi.Uint8>().asTypedList(length);
+    return utf8.decode(bytes);
   }
+
+
 
   // String toDartString() {
   //   if (this == ffi.nullptr) {
   //     return ''; // Handle null pointer
   //   }
-
+  //
   //   int length = 0;
   //   while (elementAt(length).value != 0) {
   //     length++;
   //   }
-
+  //
   //   final List<int> codeUnits = List<int>.generate(length, (index) => elementAt(index).value);
-
+  //
   //   return String.fromCharCodes(codeUnits);
   // }
 }
