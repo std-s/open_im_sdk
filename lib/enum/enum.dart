@@ -400,6 +400,37 @@ enum MessageType {
   }
 }
 
+/// Enum representing the message send status
+enum MessageStatus {
+  unkonwn(0),
+
+  /// The message is currently being sent
+  sending(1),
+
+  /// The message has been successfully sent
+  succeeded(2),
+
+  /// The message failed to send
+  failed(3),
+
+  /// The message has been deleted
+  deleted(4);
+
+  /// The numeric value representing this message status
+  final int rawValue;
+
+  /// Constructor to bind message status to its corresponding raw value
+  const MessageStatus(this.rawValue);
+
+  /// Retrieves the MessageStatus enum member from its numeric value
+  static MessageStatus fromValue(int rawValue) {
+    return MessageStatus.values.firstWhere(
+      (status) => status.rawValue == rawValue,
+      orElse: () => throw ArgumentError('Invalid message status value: $rawValue'),
+    );
+  }
+}
+
 enum ReceiveMessageOpt {
   receive(0),
   notReceive(1),

@@ -56,7 +56,7 @@ class Message {
   int? hasReadTime;
 
   /// Message sending status [MessageStatus].
-  int? status;
+  MessageStatus status = MessageStatus.unkonwn;
 
   /// Is it a reaction.
   bool? isReact;
@@ -142,7 +142,7 @@ class Message {
     this.seq,
     this.isRead,
     this.hasReadTime,
-    this.status,
+    this.status = MessageStatus.unkonwn,
     this.offlinePush,
     this.attachedInfo,
     this.ex,
@@ -183,7 +183,7 @@ class Message {
     localEx = json['localEx'];
     seq = json['seq'];
     isRead = json['isRead'];
-    status = json['status'];
+    status = MessageStatus.fromValue(json['status']);
     offlinePush = json['offlinePush'] != null ? OfflinePushInfo.fromJson(json['offlinePush']) : null;
     attachedInfo = json['attachedInfo'];
     ex = json['ex'];
@@ -228,7 +228,7 @@ class Message {
     data['seq'] = seq;
     data['isRead'] = isRead;
     data['hasReadTime'] = hasReadTime;
-    data['status'] = status;
+    data['status'] = status.rawValue;
     data['offlinePush'] = offlinePush?.toJson();
     data['attachedInfo'] = attachedInfo;
     data['ex'] = ex;
