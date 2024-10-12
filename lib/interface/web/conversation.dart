@@ -6,25 +6,25 @@ import '/model/update_req.dart';
 
 class WebConversation implements BaseConversation {
   @override
-  Future changeInputStates({required String conversationID, required bool focus, String? operationID}) {
+  Future<bool> changeInputStates({required String conversationID, required bool focus, String? operationID}) {
     // TODO: implement changeInputStates
     throw UnimplementedError();
   }
 
   @override
-  Future clearConversationAndDeleteAllMsg({required String conversationID, String? operationID}) {
+  Future<bool> clearConversationAndDeleteAllMsg({required String conversationID, String? operationID}) {
     // TODO: implement clearConversationAndDeleteAllMsg
     throw UnimplementedError();
   }
 
   @override
-  Future deleteAllConversationFromLocal({String? operationID}) {
+  Future<bool> deleteAllConversationFromLocal({String? operationID}) {
     // TODO: implement deleteAllConversationFromLocal
     throw UnimplementedError();
   }
 
   @override
-  Future deleteConversationAndDeleteAllMsg({required String conversationID, String? operationID}) {
+  Future<bool> deleteConversationAndDeleteAllMsg({required String conversationID, String? operationID}) {
     // TODO: implement deleteConversationAndDeleteAllMsg
     throw UnimplementedError();
   }
@@ -60,8 +60,7 @@ class WebConversation implements BaseConversation {
   }
 
   @override
-  Future<ConversationInfo> getOneConversation(
-      {required String sourceID, required ConversationType sessionType, String? operationID}) {
+  Future<ConversationInfo> getOneConversation({required String sourceID, required ConversationType sessionType, String? operationID}) {
     // TODO: implement getOneConversation
     throw UnimplementedError();
   }
@@ -73,25 +72,25 @@ class WebConversation implements BaseConversation {
   }
 
   @override
-  Future hideAllConversations({String? operationID}) {
+  Future<bool> hideAllConversations({String? operationID}) {
     // TODO: implement hideAllConversations
     throw UnimplementedError();
   }
 
   @override
-  Future hideConversation({required String conversationID, String? operationID}) {
+  Future<bool> hideConversation({required String conversationID, String? operationID}) {
     // TODO: implement hideConversation
     throw UnimplementedError();
   }
 
   @override
-  Future markConversationMessageAsRead({required String conversationID, String? operationID}) {
+  Future<bool> markConversationMessageAsRead({required String conversationID, String? operationID}) {
     // TODO: implement markConversationMessageAsRead
     throw UnimplementedError();
   }
 
   @override
-  Future pinConversation({required String conversationID, required bool isPinned, String? operationID}) {
+  Future<bool> pinConversation({required String conversationID, required bool isPinned, String? operationID}) {
     // TODO: implement pinConversation
     throw UnimplementedError();
   }
@@ -102,57 +101,55 @@ class WebConversation implements BaseConversation {
   }
 
   @override
-  Future resetConversationGroupAtType({required String conversationID, String? operationID}) {
+  Future<bool> resetConversationGroupAtType({required String conversationID, String? operationID}) {
     // TODO: implement resetConversationGroupAtType
     throw UnimplementedError();
   }
 
   @override
-  Future setConversation(String conversationID, ConversationReq req, {String? operationID}) {
+  Future<bool> setConversation(String conversationID, ConversationReq req, {String? operationID}) {
     // TODO: implement setConversation
     throw UnimplementedError();
   }
 
   @override
-  Future setConversationBurnDuration({required String conversationID, int burnDuration = 30, String? operationID}) {
+  Future<bool> setConversationBurnDuration({required String conversationID, int burnDuration = 30, String? operationID}) {
     // TODO: implement setConversationBurnDuration
     throw UnimplementedError();
   }
 
   @override
-  Future setConversationDraft({required String conversationID, required String draftText, String? operationID}) {
+  Future<bool> setConversationDraft({required String conversationID, required String draftText, String? operationID}) {
     // TODO: implement setConversationDraft
     throw UnimplementedError();
   }
 
   @override
-  Future setConversationEx(String conversationID, {String? ex, String? operationID}) {
+  Future<bool> setConversationEx(String conversationID, {String? ex, String? operationID}) {
     // TODO: implement setConversationEx
     throw UnimplementedError();
   }
 
   @override
-  Future setConversationIsMsgDestruct(
-      {required String conversationID, bool isMsgDestruct = true, String? operationID}) {
+  Future<bool> setConversationIsMsgDestruct({required String conversationID, bool isMsgDestruct = true, String? operationID}) {
     // TODO: implement setConversationIsMsgDestruct
     throw UnimplementedError();
   }
 
   @override
-  Future setConversationMsgDestructTime(
-      {required String conversationID, int duration = 1 * 24 * 60 * 60, String? operationID}) {
+  Future<bool> setConversationMsgDestructTime({required String conversationID, int duration = 1 * 24 * 60 * 60, String? operationID}) {
     // TODO: implement setConversationMsgDestructTime
     throw UnimplementedError();
   }
 
   @override
-  Future setConversationPrivateChat({required String conversationID, required bool isPrivate, String? operationID}) {
+  Future<bool> setConversationPrivateChat({required String conversationID, required bool isPrivate, String? operationID}) {
     // TODO: implement setConversationPrivateChat
     throw UnimplementedError();
   }
 
   @override
-  Future setConversationRecvMessageOpt({required String conversationID, required int status, String? operationID}) {
+  Future<bool> setConversationRecvMessageOpt({required String conversationID, required int status, String? operationID}) {
     // TODO: implement setConversationRecvMessageOpt
     throw UnimplementedError();
   }

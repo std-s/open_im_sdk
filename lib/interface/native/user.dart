@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:ffi' as ffi;
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
+import '../../enum/enum.dart';
 import '../../listener/listener.dart';
 import '../../listener/manager.dart';
 import '../../utils/utils.dart';
@@ -26,7 +27,7 @@ class NativeUser extends BaseUser {
         ffi.Pointer<ffi.Char> operationID, int errorCode, ffi.Pointer<ffi.Char> errorMsg, ffi.Pointer<ffi.Char> data) {
       if (errorCode > 0) {
         debugPrint('getUsersInfo failed: $operationID, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('getUsersInfo success: $operationID, $errorCode, ${data.toDartString()}');
         final list = jsonDecode(data.toDartString()).map((e) => PublicUserInfo.fromJson(e)).toList();
@@ -60,7 +61,7 @@ class NativeUser extends BaseUser {
         ffi.Pointer<ffi.Char> operationID, int errorCode, ffi.Pointer<ffi.Char> errorMsg, ffi.Pointer<ffi.Char> data) {
       if (errorCode > 0) {
         debugPrint('getSelfUserInfo failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('getSelfUserInfo success: ${operationID.toDartString()}, $errorCode, ${data.toDartString()}');
         final userInfo = UserInfo.fromJson(jsonDecode(data.toDartString()));
@@ -96,7 +97,7 @@ class NativeUser extends BaseUser {
         ffi.Pointer<ffi.Char> operationID, int errorCode, ffi.Pointer<ffi.Char> errorMsg, ffi.Pointer<ffi.Char> data) {
       if (errorCode > 0) {
         debugPrint('setSelfInfo failed: $operationID, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('setSelfInfo success: ${operationID.toDartString()}, $errorCode');
         completer.complete(true);
@@ -138,7 +139,7 @@ class NativeUser extends BaseUser {
         ffi.Pointer<ffi.Char> operationID, int errorCode, ffi.Pointer<ffi.Char> errorMsg, ffi.Pointer<ffi.Char> data) {
       if (errorCode > 0) {
         debugPrint('subscribeUsersStatus failed: $operationID, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('subscribeUsersStatus success: $operationID, $errorCode, ${data.toDartString()}');
         final list = jsonDecode(data.toDartString()).map<UserStatusInfo>((e) => UserStatusInfo.fromJson(e)).toList();
@@ -174,7 +175,7 @@ class NativeUser extends BaseUser {
         ffi.Pointer<ffi.Char> operationID, int errorCode, ffi.Pointer<ffi.Char> errorMsg, ffi.Pointer<ffi.Char> data) {
       if (errorCode > 0) {
         debugPrint('unsubscribeUsersStatus failed: $operationID, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('unsubscribeUsersStatus success: $operationID, $errorCode');
         completer.complete(true);
@@ -207,7 +208,7 @@ class NativeUser extends BaseUser {
         ffi.Pointer<ffi.Char> operationID, int errorCode, ffi.Pointer<ffi.Char> errorMsg, ffi.Pointer<ffi.Char> data) {
       if (errorCode > 0) {
         debugPrint('getSubscribeUsersStatus failed: $operationID, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('getSubscribeUsersStatus success: $operationID, $errorCode, ${data.toDartString()}');
         final list = jsonDecode(data.toDartString()).map<UserStatusInfo>((e) => UserStatusInfo.fromJson(e)).toList();
@@ -242,7 +243,7 @@ class NativeUser extends BaseUser {
         ffi.Pointer<ffi.Char> operationID, int errorCode, ffi.Pointer<ffi.Char> errorMsg, ffi.Pointer<ffi.Char> data) {
       if (errorCode > 0) {
         debugPrint('getUserStatus failed: $operationID, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('getUserStatus success: $operationID, $errorCode, ${data.toDartString()}');
         final list = jsonDecode(data.toDartString()).map<UserStatusInfo>((e) => UserStatusInfo.fromJson(e)).toList();

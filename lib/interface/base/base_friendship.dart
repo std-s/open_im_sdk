@@ -104,7 +104,7 @@ abstract class BaseFriendship implements BaseListener {
   /// Accept Friend Request
   /// [userID] User ID
   /// [handleMsg] Remark description
-  Future<dynamic> acceptFriendApplication({
+  Future<bool> acceptFriendApplication({
     required String userID,
     String? handleMsg,
     String? operationID,
@@ -113,7 +113,7 @@ abstract class BaseFriendship implements BaseListener {
   /// Reject Friend Request
   /// [userID] User ID
   /// [handleMsg] Remark description
-  Future<dynamic> refuseFriendApplication({
+  Future<bool> refuseFriendApplication({
     required String userID,
     String? handleMsg,
     String? operationID,
@@ -133,13 +133,13 @@ abstract class BaseFriendship implements BaseListener {
   });
 
   @Deprecated('Use [updateFriends] instead')
-  Future setFriendsEx(
+  Future<bool> setFriendsEx(
     List<String> friendIDs, {
     String? ex,
     String? operationID,
   });
 
-  Future<dynamic> updateFriends(
+  Future<bool> updateFriends(
     UpdateFriendsReq updateFriendsReq, {
     String? operationID,
   });

@@ -14,7 +14,6 @@ import '../../utils/define.dart';
 import '../../utils/sdk_bindings.dart';
 
 import 'package:flutter/foundation.dart'; // For debugPrint
-import 'package:ffi/ffi.dart';
 
 class NativeGroup extends BaseGroup {
   NativeGroup();
@@ -35,7 +34,7 @@ class NativeGroup extends BaseGroup {
         ffi.Pointer<ffi.Char> operationID, int errorCode, ffi.Pointer<ffi.Char> errorMsg, ffi.Pointer<ffi.Char> data) {
       if (errorCode > 0) {
         debugPrint('inviteUserToGroup failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('inviteUserToGroup success: ${operationID.toDartString()}, $errorCode');
         final list = jsonDecode(data.toDartString()).map((e) => GroupInviteResult.fromJson(e)).toList();
@@ -72,7 +71,7 @@ class NativeGroup extends BaseGroup {
         ffi.Pointer<ffi.Char> operationID, int errorCode, ffi.Pointer<ffi.Char> errorMsg, ffi.Pointer<ffi.Char> data) {
       if (errorCode > 0) {
         debugPrint('kickGroupMember failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('kickGroupMember success: ${operationID.toDartString()}, $errorCode');
         final list = jsonDecode(data.toDartString()).map((e) => GroupInviteResult.fromJson(e)).toList();
@@ -108,7 +107,7 @@ class NativeGroup extends BaseGroup {
         ffi.Pointer<ffi.Char> operationID, int errorCode, ffi.Pointer<ffi.Char> errorMsg, ffi.Pointer<ffi.Char> data) {
       if (errorCode > 0) {
         debugPrint('getGroupMembersInfo failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('getGroupMembersInfo success: ${operationID.toDartString()}, $errorCode');
         final list = jsonDecode(data.toDartString()).map((e) => GroupMembersInfo.fromJson(e)).toList();
@@ -160,7 +159,7 @@ class NativeGroup extends BaseGroup {
         ffi.Pointer<ffi.Char> operationID, int errorCode, ffi.Pointer<ffi.Char> errorMsg, ffi.Pointer<ffi.Char> data) {
       if (errorCode > 0) {
         debugPrint('getJoinedGroupList failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         final json = jsonDecode(data.toDartString()) as List?;
         final list = json?.map<GroupInfo>((e) => GroupInfo.fromJson(e)).toList();
@@ -195,7 +194,7 @@ class NativeGroup extends BaseGroup {
         ffi.Pointer<ffi.Char> operationID, int errorCode, ffi.Pointer<ffi.Char> errorMsg, ffi.Pointer<ffi.Char> data) {
       if (errorCode > 0) {
         debugPrint('createGroup failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         final result = GroupInfo.fromJson(jsonDecode(data.toDartString()));
         completer.complete(result);
@@ -222,17 +221,17 @@ class NativeGroup extends BaseGroup {
   }
 
   @override
-  Future<dynamic> setGroupInfo(GroupInfo groupInfo, {String? operationID}) {
-    final completer = Completer<dynamic>();
+  Future<bool> setGroupInfo(GroupInfo groupInfo, {String? operationID}) {
+    final completer = Completer<bool>();
     late final ffi.NativeCallable<CBSISSFunc> callback;
 
     void onResponse(
         ffi.Pointer<ffi.Char> operationID, int errorCode, ffi.Pointer<ffi.Char> errorMsg, ffi.Pointer<ffi.Char> data) {
       if (errorCode > 0) {
         debugPrint('setGroupInfo failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
-        completer.complete(data.toDartString());
+        completer.complete(true);
       }
 
       callback.close();
@@ -261,7 +260,7 @@ class NativeGroup extends BaseGroup {
       if (errorCode > 0) {
         debugPrint(
             'getGroupApplicationListAsRecipient failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         final list =
             jsonDecode(data.toDartString()).map<GroupApplicationInfo>((e) => GroupApplicationInfo.fromJson(e)).toList();
@@ -293,7 +292,7 @@ class NativeGroup extends BaseGroup {
       if (errorCode > 0) {
         debugPrint(
             'getGroupApplicationListAsApplicant failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         final list =
             jsonDecode(data.toDartString()).map<GroupApplicationInfo>((e) => GroupApplicationInfo.fromJson(e)).toList();
@@ -314,13 +313,13 @@ class NativeGroup extends BaseGroup {
   }
 
   @override
-  Future<dynamic> acceptGroupApplication({
+  Future<bool> acceptGroupApplication({
     required String groupID,
     required String userID,
     String? handleMsg,
     String? operationID,
   }) {
-    final completer = Completer<dynamic>();
+    final completer = Completer<bool>();
     late final ffi.NativeCallable<CBSISSFunc> callback;
 
     void onResponse(
@@ -328,9 +327,9 @@ class NativeGroup extends BaseGroup {
       if (errorCode > 0) {
         debugPrint(
             'acceptGroupApplication failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
-        completer.complete(data.toDartString());
+        completer.complete(true);
       }
 
       callback.close();
@@ -350,13 +349,13 @@ class NativeGroup extends BaseGroup {
   }
 
   @override
-  Future<dynamic> refuseGroupApplication({
+  Future<bool> refuseGroupApplication({
     required String groupID,
     required String userID,
     String? handleMsg,
     String? operationID,
   }) {
-    final completer = Completer<dynamic>();
+    final completer = Completer<bool>();
     late final ffi.NativeCallable<CBSISSFunc> callback;
 
     void onResponse(
@@ -364,9 +363,9 @@ class NativeGroup extends BaseGroup {
       if (errorCode > 0) {
         debugPrint(
             'refuseGroupApplication failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
-        completer.complete(data.toDartString());
+        completer.complete(true);
       }
 
       callback.close();
@@ -386,20 +385,20 @@ class NativeGroup extends BaseGroup {
   }
 
   @override
-  Future<dynamic> dismissGroup({
+  Future<bool> dismissGroup({
     required String groupID,
     String? operationID,
   }) {
-    final completer = Completer<dynamic>();
+    final completer = Completer<bool>();
     late final ffi.NativeCallable<CBSISSFunc> callback;
 
     void onResponse(
         ffi.Pointer<ffi.Char> operationID, int errorCode, ffi.Pointer<ffi.Char> errorMsg, ffi.Pointer<ffi.Char> data) {
       if (errorCode > 0) {
         debugPrint('dismissGroup failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
-        completer.complete(data.toDartString());
+        completer.complete(true);
       }
 
       callback.close();
@@ -417,21 +416,21 @@ class NativeGroup extends BaseGroup {
   }
 
   @override
-  Future<dynamic> changeGroupMute({
+  Future<bool> changeGroupMute({
     required String groupID,
     required bool mute,
     String? operationID,
   }) {
-    final completer = Completer<dynamic>();
+    final completer = Completer<bool>();
     late final ffi.NativeCallable<CBSISSFunc> callback;
 
     void onResponse(
         ffi.Pointer<ffi.Char> operationID, int errorCode, ffi.Pointer<ffi.Char> errorMsg, ffi.Pointer<ffi.Char> data) {
       if (errorCode > 0) {
         debugPrint('changeGroupMute failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
-        completer.complete(data.toDartString());
+        completer.complete(true);
       }
 
       callback.close();
@@ -450,13 +449,13 @@ class NativeGroup extends BaseGroup {
   }
 
   @override
-  Future<dynamic> changeGroupMemberMute({
+  Future<bool> changeGroupMemberMute({
     required String groupID,
     required String userID,
     int seconds = 0,
     String? operationID,
   }) {
-    final completer = Completer<dynamic>();
+    final completer = Completer<bool>();
     late final ffi.NativeCallable<CBSISSFunc> callback;
 
     void onResponse(
@@ -464,9 +463,9 @@ class NativeGroup extends BaseGroup {
       if (errorCode > 0) {
         debugPrint(
             'changeGroupMemberMute failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
-        completer.complete(data.toDartString());
+        completer.complete(true);
       }
 
       callback.close();
@@ -504,7 +503,7 @@ class NativeGroup extends BaseGroup {
         debugPrint(
             'getGroupMemberListByJoinTime failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
 
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('getGroupMemberListByJoinTime success: ${operationID.toDartString()}, ${data.toDartString()}');
 
@@ -548,7 +547,7 @@ class NativeGroup extends BaseGroup {
       if (errorCode > 0) {
         debugPrint(
             'getGroupMemberListMap failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('getGroupMemberListMap success: ${operationID.toDartString()}, $errorCode');
         final list = jsonDecode(data.toDartString());
@@ -586,7 +585,7 @@ class NativeGroup extends BaseGroup {
         debugPrint(
             'getGroupOwnerAndAdmin failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
 
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('getGroupOwnerAndAdmin success: ${operationID.toDartString()}, ${data.toDartString()}');
         final list = jsonDecode(data.toDartString()).map((e) => GroupMembersInfo.fromJson(e)).toList();
@@ -619,7 +618,7 @@ class NativeGroup extends BaseGroup {
         ffi.Pointer<ffi.Char> operationID, int errorCode, ffi.Pointer<ffi.Char> errorMsg, ffi.Pointer<ffi.Char> data) {
       if (errorCode > 0) {
         debugPrint('getGroupsInfo failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('getGroupsInfo success: ${operationID.toDartString()}, ${data.toDartString()}');
         final list = jsonDecode(data.toDartString()).map((e) => GroupInfo.fromJson(e)).toList();
@@ -652,7 +651,7 @@ class NativeGroup extends BaseGroup {
       if (errorCode > 0) {
         debugPrint(
             'getJoinedGroupListMap failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('getJoinedGroupListMap success: ${operationID.toDartString()}, $errorCode');
         final list = jsonDecode(data.toDartString());
@@ -686,7 +685,7 @@ class NativeGroup extends BaseGroup {
       if (errorCode > 0) {
         debugPrint(
             'getJoinedGroupListPage failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('getJoinedGroupListPage success: ${operationID.toDartString()}, ${data.toDartString()}');
         final list = jsonDecode(data.toDartString()).map((e) => GroupInfo.fromJson(e)).toList();
@@ -709,22 +708,22 @@ class NativeGroup extends BaseGroup {
   }
 
   @override
-  Future<dynamic> getUsersInGroup(
+  Future<bool> getUsersInGroup(
     String groupID,
     List<String> userIDs, {
     String? operationID,
   }) {
-    final completer = Completer<dynamic>();
+    final completer = Completer<bool>();
     late final ffi.NativeCallable<CBSISSFunc> callback;
 
     void onResponse(
         ffi.Pointer<ffi.Char> operationID, int errorCode, ffi.Pointer<ffi.Char> errorMsg, ffi.Pointer<ffi.Char> data) {
       if (errorCode > 0) {
         debugPrint('getUsersInGroup failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('getUsersInGroup success: ${operationID.toDartString()}, ${data.toDartString()}');
-        completer.complete(data.toDartString());
+        completer.complete(true);
       }
 
       callback.close();
@@ -754,7 +753,7 @@ class NativeGroup extends BaseGroup {
         ffi.Pointer<ffi.Char> operationID, int errorCode, ffi.Pointer<ffi.Char> errorMsg, ffi.Pointer<ffi.Char> data) {
       if (errorCode > 0) {
         debugPrint('isJoinedGroup failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('isJoinedGroup success: ${operationID.toDartString()}, ${data.toDartString()}');
         completer.complete(data.toDartString() == 'true');
@@ -775,24 +774,24 @@ class NativeGroup extends BaseGroup {
   }
 
   @override
-  Future<dynamic> joinGroup({
+  Future<bool> joinGroup({
     required String groupID,
     String? reason,
     String? operationID,
     JoinType joinSource = JoinType.search,
     String? ex,
   }) {
-    final completer = Completer<dynamic>();
+    final completer = Completer<bool>();
     late final ffi.NativeCallable<CBSISSFunc> callback;
 
     void onResponse(
         ffi.Pointer<ffi.Char> operationID, int errorCode, ffi.Pointer<ffi.Char> errorMsg, ffi.Pointer<ffi.Char> data) {
       if (errorCode > 0) {
         debugPrint('joinGroup failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('joinGroup success: ${operationID.toDartString()}, ${data.toDartString()}');
-        completer.complete(data.toDartString());
+        completer.complete(true);
       }
 
       callback.close();
@@ -813,21 +812,21 @@ class NativeGroup extends BaseGroup {
   }
 
   @override
-  Future<dynamic> quitGroup({
+  Future<bool> quitGroup({
     required String groupID,
     String? operationID,
   }) {
-    final completer = Completer<dynamic>();
+    final completer = Completer<bool>();
     late final ffi.NativeCallable<CBSISSFunc> callback;
 
     void onResponse(
         ffi.Pointer<ffi.Char> operationID, int errorCode, ffi.Pointer<ffi.Char> errorMsg, ffi.Pointer<ffi.Char> data) {
       if (errorCode > 0) {
         debugPrint('quitGroup failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('quitGroup success: ${operationID.toDartString()}, ${data.toDartString()}');
-        completer.complete(data.toDartString());
+        completer.complete(true);
       }
 
       callback.close();
@@ -882,7 +881,7 @@ class NativeGroup extends BaseGroup {
         ffi.Pointer<ffi.Char> operationID, int errorCode, ffi.Pointer<ffi.Char> errorMsg, ffi.Pointer<ffi.Char> data) {
       if (errorCode > 0) {
         debugPrint('searchGroupMembers failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('searchGroupMembers success: ${operationID.toDartString()}, ${data.toDartString()}');
         final list = jsonDecode(data.toDartString());
@@ -926,7 +925,7 @@ class NativeGroup extends BaseGroup {
         ffi.Pointer<ffi.Char> operationID, int errorCode, ffi.Pointer<ffi.Char> errorMsg, ffi.Pointer<ffi.Char> data) {
       if (errorCode > 0) {
         debugPrint('searchGroups failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('searchGroups success: ${operationID.toDartString()}, ${data.toDartString()}');
         final list = jsonDecode(data.toDartString()).map((e) => GroupInfo.fromJson(e)).toList();
@@ -954,7 +953,7 @@ class NativeGroup extends BaseGroup {
   }
 
   @override
-  Future<dynamic> setGroupApplyMemberFriend({
+  Future<bool> setGroupApplyMemberFriend({
     required String groupID,
     required int status,
     String? operationID,
@@ -965,28 +964,28 @@ class NativeGroup extends BaseGroup {
   }
 
   @override
-  Future setGroupLookMemberInfo({required String groupID, required int status, String? operationID}) {
+  Future<bool> setGroupLookMemberInfo({required String groupID, required int status, String? operationID}) {
     final req = GroupInfo(groupID: groupID, lookMemberInfo: status);
 
     return setGroupInfo(req, operationID: operationID);
   }
 
   @override
-  Future<dynamic> setGroupMemberInfo({
+  Future<bool> setGroupMemberInfo({
     required GroupMembersInfo groupMembersInfo,
     String? operationID,
   }) {
-    final completer = Completer<dynamic>();
+    final completer = Completer<bool>();
     late final ffi.NativeCallable<CBSISSFunc> callback;
 
     void onResponse(
         ffi.Pointer<ffi.Char> operationID, int errorCode, ffi.Pointer<ffi.Char> errorMsg, ffi.Pointer<ffi.Char> data) {
       if (errorCode > 0) {
         debugPrint('setGroupMemberInfo failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('setGroupMemberInfo success: ${operationID.toDartString()}, ${data.toDartString()}');
-        completer.complete(data.toDartString());
+        completer.complete(true);
       }
 
       callback.close();
@@ -1004,7 +1003,7 @@ class NativeGroup extends BaseGroup {
   }
 
   @override
-  Future setGroupMemberNickname(
+  Future<bool> setGroupMemberNickname(
       {required String groupID, required String userID, String? groupNickname, String? operationID}) {
     final req = GroupMembersInfo(groupID: groupID, userID: userID, nickname: groupNickname);
 
@@ -1012,7 +1011,7 @@ class NativeGroup extends BaseGroup {
   }
 
   @override
-  Future setGroupMemberRoleLevel(
+  Future<bool> setGroupMemberRoleLevel(
       {required String groupID, required String userID, required int roleLevel, String? operationID}) {
     final req = GroupMembersInfo(groupID: groupID, userID: userID, roleLevel: roleLevel);
 
@@ -1020,7 +1019,7 @@ class NativeGroup extends BaseGroup {
   }
 
   @override
-  Future setGroupVerification(
+  Future<bool> setGroupVerification(
       {required String groupID, required GroupVerificationType needVerification, String? operationID}) {
     final req = GroupInfo(groupID: groupID, needVerification: needVerification.rawValue);
 
@@ -1028,22 +1027,22 @@ class NativeGroup extends BaseGroup {
   }
 
   @override
-  Future<dynamic> transferGroupOwner({
+  Future<bool> transferGroupOwner({
     required String groupID,
     required String userID,
     String? operationID,
   }) {
-    final completer = Completer<dynamic>();
+    final completer = Completer<bool>();
     late final ffi.NativeCallable<CBSISSFunc> callback;
 
     void onResponse(
         ffi.Pointer<ffi.Char> operationID, int errorCode, ffi.Pointer<ffi.Char> errorMsg, ffi.Pointer<ffi.Char> data) {
       if (errorCode > 0) {
         debugPrint('transferGroupOwner failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('transferGroupOwner success: ${operationID.toDartString()}, ${data.toDartString()}');
-        completer.complete(data.toDartString());
+        completer.complete(true);
       }
 
       callback.close();

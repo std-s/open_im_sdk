@@ -37,7 +37,7 @@ abstract class BaseConversation implements BaseListener {
   /// Sets the draft for a conversation.
   /// [conversationID] Conversation ID.
   /// [draftText] Draft content.
-  Future setConversationDraft({
+  Future<bool> setConversationDraft({
     required String conversationID,
     required String draftText,
     String? operationID,
@@ -47,7 +47,7 @@ abstract class BaseConversation implements BaseListener {
   /// [conversationID] Conversation ID.
   /// [isPinned] true: pin; false: unpin.
   @Deprecated('use [setConversation] instead')
-  Future pinConversation({
+  Future<bool> pinConversation({
     required String conversationID,
     required bool isPinned,
     String? operationID,
@@ -55,13 +55,13 @@ abstract class BaseConversation implements BaseListener {
 
   /// Hides a conversation.
   /// [conversationID] Conversation ID.
-  Future hideConversation({
+  Future<bool> hideConversation({
     required String conversationID,
     String? operationID,
   });
 
   /// Hides all conversations.
-  Future hideAllConversations({
+  Future<bool> hideAllConversations({
     String? operationID,
   });
 
@@ -74,7 +74,7 @@ abstract class BaseConversation implements BaseListener {
   /// [conversationID] Conversation ID.
   /// [status] 0: normal; 1: do not accept messages; 2: accept online messages but not offline messages.
   @Deprecated('use [setConversation] instead')
-  Future setConversationRecvMessageOpt({
+  Future<bool> setConversationRecvMessageOpt({
     required String conversationID,
     required int status,
     String? operationID,
@@ -84,7 +84,7 @@ abstract class BaseConversation implements BaseListener {
   /// [conversationID] Conversation ID.
   /// [isPrivate] true: enable; false: disable.
   @Deprecated('use [setConversation] instead')
-  Future setConversationPrivateChat({
+  Future<bool> setConversationPrivateChat({
     required String conversationID,
     required bool isPrivate,
     String? operationID,
@@ -92,28 +92,28 @@ abstract class BaseConversation implements BaseListener {
 
   /// Deletes the conversation and all messages from both local and server.
   /// [conversationID] Conversation ID.
-  Future deleteConversationAndDeleteAllMsg({
+  Future<bool> deleteConversationAndDeleteAllMsg({
     required String conversationID,
     String? operationID,
   });
 
   /// Clears all messages from a conversation.
   /// [conversationID] Conversation ID.
-  Future clearConversationAndDeleteAllMsg({
+  Future<bool> clearConversationAndDeleteAllMsg({
     required String conversationID,
     String? operationID,
   });
 
   /// Deletes all local conversations.
   @Deprecated('use hideAllConversations instead')
-  Future deleteAllConversationFromLocal({
+  Future<bool> deleteAllConversationFromLocal({
     String? operationID,
   });
 
   /// Resets the group mention status.
   /// [conversationID] Conversation ID.
   @Deprecated('use [setConversation] instead')
-  Future resetConversationGroupAtType({
+  Future<bool> resetConversationGroupAtType({
     required String conversationID,
     String? operationID,
   });
@@ -127,7 +127,7 @@ abstract class BaseConversation implements BaseListener {
   /// [conversationID] Conversation ID.
   /// [burnDuration] Duration in seconds, default is 30 seconds.
   @Deprecated('use [setConversation] instead')
-  Future setConversationBurnDuration({
+  Future<bool> setConversationBurnDuration({
     required String conversationID,
     int burnDuration = 30,
     String? operationID,
@@ -135,7 +135,7 @@ abstract class BaseConversation implements BaseListener {
 
   /// Marks messages as read.
   /// [conversationID] Conversation ID.
-  Future markConversationMessageAsRead({
+  Future<bool> markConversationMessageAsRead({
     required String conversationID,
     String? operationID,
   });
@@ -144,7 +144,7 @@ abstract class BaseConversation implements BaseListener {
   /// [conversationID] Conversation ID.
   /// [isMsgDestruct] true: enable.
   @Deprecated('use [setConversation] instead')
-  Future setConversationIsMsgDestruct({
+  Future<bool> setConversationIsMsgDestruct({
     required String conversationID,
     bool isMsgDestruct = true,
     String? operationID,
@@ -154,14 +154,14 @@ abstract class BaseConversation implements BaseListener {
   /// [conversationID] Conversation ID.
   /// [duration] Duration in seconds.
   @Deprecated('use [setConversation] instead')
-  Future setConversationMsgDestructTime({
+  Future<bool> setConversationMsgDestructTime({
     required String conversationID,
     int duration = 1 * 24 * 60 * 60,
     String? operationID,
   });
 
   /// Sets extended information for a conversation.
-  Future setConversationEx(
+  Future<bool> setConversationEx(
     String conversationID, {
     String? ex,
     String? operationID,
@@ -171,7 +171,7 @@ abstract class BaseConversation implements BaseListener {
   List<ConversationInfo> simpleSort(List<ConversationInfo> list);
 
   /// Changes the input state for a conversation.
-  Future changeInputStates({
+  Future<bool> changeInputStates({
     required String conversationID,
     required bool focus,
     String? operationID,
@@ -185,7 +185,7 @@ abstract class BaseConversation implements BaseListener {
   });
 
   /// Sets the conversation with a request object.
-  Future setConversation(
+  Future<bool> setConversation(
     String conversationID,
     ConversationReq req, {
     String? operationID,

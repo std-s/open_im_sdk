@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'dart:ffi' as ffi;
 
 import 'package:flutter/foundation.dart';
+import '../../enum/enum.dart';
 import '/listener/listener.dart';
 import '/model/search_info.dart';
 import '/utils/utils.dart';
-import 'package:ffi/ffi.dart'; // For calloc
 
 import '../../listener/manager.dart';
 import '../../model/message.dart';
@@ -256,7 +256,7 @@ class NativeMessage extends BaseMessage {
         ffi.Pointer<ffi.Char> data, int progress) {
       if (errorCode > 0) {
         debugPrint('sendMessageNotOss failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         final jsonStr = data.toDartString();
         final responseMessage = Message.fromJson(jsonDecode(jsonStr));
@@ -309,7 +309,7 @@ class NativeMessage extends BaseMessage {
       }
       if (errorCode > 0) {
         debugPrint('sendMessage failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         final jsonStr = data.toDartString();
         final responseMessage = Message.fromJson(json.decode(jsonStr));
@@ -336,12 +336,12 @@ class NativeMessage extends BaseMessage {
   }
 
   @override
-  Future<void> deleteMessageFromLocalStorage({
+  Future<bool> deleteMessageFromLocalStorage({
     required String conversationID,
     required String clientMsgID,
     String? operationID,
   }) {
-    final completer = Completer<void>();
+    final completer = Completer<bool>();
     late final ffi.NativeCallable<CBSISSFunc> callback;
 
     void onResponse(
@@ -349,10 +349,10 @@ class NativeMessage extends BaseMessage {
       if (errorCode > 0) {
         debugPrint(
             'deleteMessageFromLocalStorage failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('deleteMessageFromLocalStorage success: ${operationID.toDartString()}, $errorCode');
-        completer.complete();
+        completer.complete(true);
       }
 
       callback.close();
@@ -371,12 +371,12 @@ class NativeMessage extends BaseMessage {
   }
 
   @override
-  Future<void> deleteMessageFromLocalAndSvr({
+  Future<bool> deleteMessageFromLocalAndSvr({
     required String conversationID,
     required String clientMsgID,
     String? operationID,
   }) {
-    final completer = Completer<void>();
+    final completer = Completer<bool>();
     late final ffi.NativeCallable<CBSISSFunc> callback;
 
     void onResponse(
@@ -384,10 +384,10 @@ class NativeMessage extends BaseMessage {
       if (errorCode > 0) {
         debugPrint(
             'deleteMessageFromLocalAndSvr failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('deleteMessageFromLocalAndSvr success: ${operationID.toDartString()}, $errorCode');
-        completer.complete();
+        completer.complete(true);
       }
 
       callback.close();
@@ -406,10 +406,10 @@ class NativeMessage extends BaseMessage {
   }
 
   @override
-  Future<void> deleteAllMsgFromLocal({
+  Future<bool> deleteAllMsgFromLocal({
     String? operationID,
   }) {
-    final completer = Completer<void>();
+    final completer = Completer<bool>();
     late final ffi.NativeCallable<CBSISSFunc> callback;
 
     void onResponse(
@@ -417,10 +417,10 @@ class NativeMessage extends BaseMessage {
       if (errorCode > 0) {
         debugPrint(
             'deleteAllMsgFromLocal failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('deleteAllMsgFromLocal success: ${operationID.toDartString()}, $errorCode');
-        completer.complete();
+        completer.complete(true);
       }
 
       callback.close();
@@ -437,10 +437,10 @@ class NativeMessage extends BaseMessage {
   }
 
   @override
-  Future<void> deleteAllMsgFromLocalAndSvr({
+  Future<bool> deleteAllMsgFromLocalAndSvr({
     String? operationID,
   }) {
-    final completer = Completer<void>();
+    final completer = Completer<bool>();
     late final ffi.NativeCallable<CBSISSFunc> callback;
 
     void onResponse(
@@ -448,10 +448,10 @@ class NativeMessage extends BaseMessage {
       if (errorCode > 0) {
         debugPrint(
             'deleteAllMsgFromLocalAndSvr failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('deleteAllMsgFromLocalAndSvr success: ${operationID.toDartString()}, $errorCode');
-        completer.complete();
+        completer.complete(true);
       }
 
       callback.close();
@@ -486,7 +486,7 @@ class NativeMessage extends BaseMessage {
       if (errorCode > 0) {
         debugPrint(
             'insertGroupMessageToLocalStorage failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         final jsonStr = data.toDartString();
         final responseMessage = Message.fromJson(json.decode(jsonStr));
@@ -517,7 +517,7 @@ class NativeMessage extends BaseMessage {
     String? senderID,
     String? operationID,
   }) {
-    final completer = Completer<Message>();
+    final completer = Completer<Message?>();
     late final ffi.NativeCallable<CBSISSFunc> callback;
 
     void onResponse(
@@ -525,7 +525,7 @@ class NativeMessage extends BaseMessage {
       if (errorCode > 0) {
         debugPrint(
             'insertSingleMessageToLocalStorage failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         final jsonStr = data.toDartString();
         final responseMessage = Message.fromJson(jsonDecode(jsonStr));
@@ -561,7 +561,7 @@ class NativeMessage extends BaseMessage {
         ffi.Pointer<ffi.Char> operationID, int errorCode, ffi.Pointer<ffi.Char> errorMsg, ffi.Pointer<ffi.Char> data) {
       if (errorCode > 0) {
         debugPrint('findMessageList failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         final jsonStr = data.toDartString();
         final response = SearchResult.fromJson(json.decode(jsonStr));
@@ -599,7 +599,7 @@ class NativeMessage extends BaseMessage {
       if (errorCode > 0) {
         debugPrint(
             'getAdvancedHistoryMessageList failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         final jsonStr = data.toDartString();
         final responseMessage = AdvancedMessage.fromJson(json.decode(jsonStr));
@@ -645,7 +645,7 @@ class NativeMessage extends BaseMessage {
       if (errorCode > 0) {
         debugPrint(
             'getAdvancedHistoryMessageListReverse failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         final jsonStr = data.toDartString();
         final responseMessage = AdvancedMessage.fromJson(json.decode(jsonStr));
@@ -676,22 +676,22 @@ class NativeMessage extends BaseMessage {
   }
 
   @override
-  Future<void> revokeMessage({
+  Future<bool> revokeMessage({
     required String conversationID,
     required String clientMsgID,
     String? operationID,
   }) {
-    final completer = Completer<void>();
+    final completer = Completer<bool>();
     late final ffi.NativeCallable<CBSISSFunc> callback;
 
     void onResponse(
         ffi.Pointer<ffi.Char> operationID, int errorCode, ffi.Pointer<ffi.Char> errorMsg, ffi.Pointer<ffi.Char> data) {
       if (errorCode > 0) {
         debugPrint('revokeMessage failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('revokeMessage success: ${operationID.toDartString()}, $errorCode');
-        completer.complete();
+        completer.complete(true);
       }
 
       callback.close();
@@ -729,7 +729,7 @@ class NativeMessage extends BaseMessage {
         ffi.Pointer<ffi.Char> operationID, int errorCode, ffi.Pointer<ffi.Char> errorMsg, ffi.Pointer<ffi.Char> data) {
       if (errorCode > 0) {
         debugPrint('searchLocalMessages failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         final jsonStr = data.toDartString();
         final searchResult = SearchResult.fromJson(json.decode(jsonStr));
@@ -763,23 +763,23 @@ class NativeMessage extends BaseMessage {
   }
 
   @override
-  Future<void> setMessageLocalEx({
+  Future<bool> setMessageLocalEx({
     required String conversationID,
     required String clientMsgID,
     required String localEx,
     String? operationID,
   }) {
-    final completer = Completer<void>();
+    final completer = Completer<bool>();
     late final ffi.NativeCallable<CBSISSFunc> callback;
 
     void onResponse(
         ffi.Pointer<ffi.Char> operationID, int errorCode, ffi.Pointer<ffi.Char> errorMsg, ffi.Pointer<ffi.Char> data) {
       if (errorCode > 0) {
         debugPrint('setMessageLocalEx failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('setMessageLocalEx success: ${operationID.toDartString()}, $errorCode');
-        completer.complete();
+        completer.complete(true);
       }
 
       callback.close();
@@ -799,32 +799,30 @@ class NativeMessage extends BaseMessage {
   }
 
   @override
-  Future<void> setAppBadge(
+  Future<bool> setAppBadge(
     int count, {
     String? operationID,
   }) {
-    final completer = Completer<void>(); // Create a Completer to handle the asynchronous operation
+    final completer = Completer<bool>();
     late final ffi.NativeCallable<CBSISSFunc> callback;
 
-    // Callback function to handle the response from the native side
     void onResponse(
         ffi.Pointer<ffi.Char> operationID, int errorCode, ffi.Pointer<ffi.Char> errorMsg, ffi.Pointer<ffi.Char> data) {
       if (errorCode > 0) {
         // If there is an error, complete the completer with an error
         debugPrint('setAppBadge failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         // On success, just complete the completer
         debugPrint('setAppBadge success: ${operationID.toDartString()}, $errorCode');
-        completer.complete(); // Free the allocated data
+        completer.complete(true); // Free the allocated data
       }
 
       callback.close(); // Close the callback to free resources
     }
 
-    callback = ffi.NativeCallable<CBSISSFunc>.listener(onResponse); // Create a listener for the callback
+    callback = ffi.NativeCallable<CBSISSFunc>.listener(onResponse);
 
-    // Call the native function with the necessary parameters
     _bindings.set_app_Badge(
       callback.nativeFunction,
       Utils.reviseToNativeOperationID(operationID),

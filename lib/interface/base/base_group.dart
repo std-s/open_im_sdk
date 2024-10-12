@@ -84,7 +84,7 @@ abstract class BaseGroup implements BaseListener {
   });
 
   /// Edit group information
-  Future<dynamic> setGroupInfo(
+  Future<bool> setGroupInfo(
     GroupInfo groupInfo, {
     String? operationID,
   });
@@ -96,7 +96,7 @@ abstract class BaseGroup implements BaseListener {
   });
 
   /// Apply to join a group
-  Future<dynamic> joinGroup({
+  Future<bool> joinGroup({
     required String groupID,
     String? reason,
     String? operationID,
@@ -105,13 +105,13 @@ abstract class BaseGroup implements BaseListener {
   });
 
   /// Exit a group
-  Future<dynamic> quitGroup({
+  Future<bool> quitGroup({
     required String groupID,
     String? operationID,
   });
 
   /// Transfer group ownership
-  Future<dynamic> transferGroupOwner({
+  Future<bool> transferGroupOwner({
     required String groupID,
     required String userID,
     String? operationID,
@@ -128,7 +128,7 @@ abstract class BaseGroup implements BaseListener {
   });
 
   /// Accept a group membership application as an administrator or group owner
-  Future<dynamic> acceptGroupApplication({
+  Future<bool> acceptGroupApplication({
     required String groupID,
     required String userID,
     String? handleMsg,
@@ -136,7 +136,7 @@ abstract class BaseGroup implements BaseListener {
   });
 
   /// Refuse a group membership application as an administrator or group owner
-  Future<dynamic> refuseGroupApplication({
+  Future<bool> refuseGroupApplication({
     required String groupID,
     required String userID,
     String? handleMsg,
@@ -144,20 +144,20 @@ abstract class BaseGroup implements BaseListener {
   });
 
   /// Dissolve a group
-  Future<dynamic> dismissGroup({
+  Future<bool> dismissGroup({
     required String groupID,
     String? operationID,
   });
 
   /// Enable or disable group mute
-  Future<dynamic> changeGroupMute({
+  Future<bool> changeGroupMute({
     required String groupID,
     required bool mute,
     String? operationID,
   });
 
   /// Mute a group member
-  Future<dynamic> changeGroupMemberMute({
+  Future<bool> changeGroupMemberMute({
     required String groupID,
     required String userID,
     int seconds = 0,
@@ -166,7 +166,7 @@ abstract class BaseGroup implements BaseListener {
 
   /// Set the nickname of a group member
   @Deprecated('Use [setGroupMemberInfo] instead')
-  Future<dynamic> setGroupMemberNickname({
+  Future<bool> setGroupMemberNickname({
     required String groupID,
     required String userID,
     String? groupNickname,
@@ -183,7 +183,7 @@ abstract class BaseGroup implements BaseListener {
 
   /// Set group member role
   @Deprecated('Use [setGroupMemberInfo] instead')
-  Future<dynamic> setGroupMemberRoleLevel({
+  Future<bool> setGroupMemberRoleLevel({
     required String groupID,
     required String userID,
     required int roleLevel,
@@ -203,7 +203,7 @@ abstract class BaseGroup implements BaseListener {
 
   /// Set group verification
   @Deprecated('Use [setGroupInfo] instead')
-  Future<dynamic> setGroupVerification({
+  Future<bool> setGroupVerification({
     required String groupID,
     required GroupVerificationType needVerification,
     String? operationID,
@@ -211,7 +211,7 @@ abstract class BaseGroup implements BaseListener {
 
   /// Allow/disallow members to add friends through the group
   @Deprecated('Use [setGroupInfo] instead')
-  Future<dynamic> setGroupLookMemberInfo({
+  Future<bool> setGroupLookMemberInfo({
     required String groupID,
     required int status,
     String? operationID,
@@ -219,7 +219,7 @@ abstract class BaseGroup implements BaseListener {
 
   /// Allow/disallow members to add friends through the group
   @Deprecated('Use [setGroupInfo] instead')
-  Future<dynamic> setGroupApplyMemberFriend({
+  Future<bool> setGroupApplyMemberFriend({
     required String groupID,
     required int status,
     String? operationID,
@@ -254,13 +254,13 @@ abstract class BaseGroup implements BaseListener {
   });
 
   /// Modify the GroupMemberInfo ex field
-  Future<dynamic> setGroupMemberInfo({
+  Future<bool> setGroupMemberInfo({
     required GroupMembersInfo groupMembersInfo,
     String? operationID,
   });
 
   /// Get users in the group
-  Future<dynamic> getUsersInGroup(
+  Future<bool> getUsersInGroup(
     String groupID,
     List<String> userIDs, {
     String? operationID,

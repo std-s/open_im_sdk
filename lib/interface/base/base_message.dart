@@ -33,7 +33,7 @@ abstract class BaseMessage implements BaseListener {
 
   /// Delete a message from local storage
   /// [message] Message to be deleted
-  Future deleteMessageFromLocalStorage({
+  Future<bool> deleteMessageFromLocalStorage({
     required String conversationID,
     required String clientMsgID,
     String? operationID,
@@ -41,19 +41,19 @@ abstract class BaseMessage implements BaseListener {
 
   /// Delete a specified message from local and server
   /// [message] Message to be deleted
-  Future<dynamic> deleteMessageFromLocalAndSvr({
+  Future<bool> deleteMessageFromLocalAndSvr({
     required String conversationID,
     required String clientMsgID,
     String? operationID,
   });
 
   /// Delete all local chat records
-  Future<dynamic> deleteAllMsgFromLocal({
+  Future<bool> deleteAllMsgFromLocal({
     String? operationID,
   });
 
   /// Delete all chat records from local and server
-  Future<dynamic> deleteAllMsgFromLocalAndSvr({
+  Future<bool> deleteAllMsgFromLocalAndSvr({
     String? operationID,
   });
 
@@ -104,7 +104,7 @@ abstract class BaseMessage implements BaseListener {
 
   /// Revoke a message
   /// [message] The message to be revoked
-  Future revokeMessage({
+  Future<bool> revokeMessage({
     required String conversationID,
     required String clientMsgID,
     String? operationID,
@@ -143,14 +143,14 @@ abstract class BaseMessage implements BaseListener {
     String? operationID,
   });
 
-  Future setMessageLocalEx({
+  Future<bool> setMessageLocalEx({
     required String conversationID,
     required String clientMsgID,
     required String localEx,
     String? operationID,
   });
 
-  Future setAppBadge(
+  Future<bool> setAppBadge(
     int count, {
     String? operationID,
   });

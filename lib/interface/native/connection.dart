@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:ffi' as ffi;
 
-import 'package:ffi/ffi.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'package:flutter/foundation.dart';
@@ -65,7 +64,7 @@ class NativeConnection extends BaseConnection {
         ffi.Pointer<ffi.Char> operationID, int errorCode, ffi.Pointer<ffi.Char> errorMsg, ffi.Pointer<ffi.Char> data) {
       if (errorCode > 0) {
         debugPrint('login failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('login success: ${operationID.toDartString()}, $errorCode, ${data.toDartString()}');
         completer.complete(true);
@@ -95,7 +94,7 @@ class NativeConnection extends BaseConnection {
         ffi.Pointer<ffi.Char> operationID, int errorCode, ffi.Pointer<ffi.Char> errorMsg, ffi.Pointer<ffi.Char> data) {
       if (errorCode > 0) {
         debugPrint('loginout failed: $operationID, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('loginout success: $operationID, $errorCode, ${data.toDartString()}');
         completer.complete(true);
@@ -142,7 +141,7 @@ class NativeConnection extends BaseConnection {
         ffi.Pointer<ffi.Char> operationID, int errorCode, ffi.Pointer<ffi.Char> errorMsg, ffi.Pointer<ffi.Char> data) {
       if (errorCode > 0) {
         debugPrint('updateFcmToken failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('updateFcmToken success: ${operationID.toDartString()}, $errorCode');
         completer.complete(true);
@@ -183,7 +182,7 @@ class NativeConnection extends BaseConnection {
         ffi.Pointer<ffi.Char> operationID, int errorCode, ffi.Pointer<ffi.Char> errorMsg, ffi.Pointer<ffi.Char> data) {
       if (errorCode > 0) {
         debugPrint('uploadFile failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('uploadFile success: ${operationID.toDartString()}, $errorCode');
         completer.complete(true);
@@ -237,7 +236,7 @@ class NativeConnection extends BaseConnection {
         ffi.Pointer<ffi.Char> operationID, int errorCode, ffi.Pointer<ffi.Char> errorMsg, ffi.Pointer<ffi.Char> data) {
       if (errorCode > 0) {
         debugPrint('uploadLogs failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('uploadLogs success: ${operationID.toDartString()}, $errorCode');
         completer.complete(true);
@@ -287,7 +286,7 @@ class NativeConnection extends BaseConnection {
         ffi.Pointer<ffi.Char> operationID, int errorCode, ffi.Pointer<ffi.Char> errorMsg, ffi.Pointer<ffi.Char> data) {
       if (errorCode > 0) {
         debugPrint('logs failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('logs success: ${operationID.toDartString()}, $errorCode');
         completer.complete(true);

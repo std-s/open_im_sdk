@@ -1,6 +1,5 @@
 import 'dart:ffi' as ffi;
 import 'package:flutter/foundation.dart';
-import 'package:ffi/ffi.dart';
 
 import '../utils/utils.dart';
 import '../utils/define.dart';

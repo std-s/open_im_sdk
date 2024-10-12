@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'dart:ffi' as ffi;
 
 import 'package:flutter/foundation.dart';
+import '../../enum/enum.dart';
 import '/listener/listener.dart';
 import '/listener/manager.dart';
 import '/utils/sdk_bindings.dart';
-import 'package:ffi/ffi.dart'; // For calloc
 
 import '../../model/search_info.dart';
 import '../../model/update_req.dart';
@@ -19,12 +19,12 @@ class NativeFriendship extends BaseFriendship {
   final _bindings = SDKBindings().bindings;
 
   @override
-  Future<void> acceptFriendApplication({
+  Future<bool> acceptFriendApplication({
     required String userID,
     String? handleMsg,
     String? operationID,
   }) {
-    final completer = Completer<void>();
+    final completer = Completer<bool>();
     late final ffi.NativeCallable<CBSISSFunc> callback;
 
     void onResponse(
@@ -32,10 +32,10 @@ class NativeFriendship extends BaseFriendship {
       if (errorCode > 0) {
         debugPrint(
             'acceptFriendApplication failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('acceptFriendApplication success: ${operationID.toDartString()}');
-        completer.complete();
+        completer.complete(true);
       }
 
       callback.close();
@@ -70,7 +70,7 @@ class NativeFriendship extends BaseFriendship {
         debugPrint(
           'addBlacklist failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}',
         );
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('addBlacklist success: ${operationID.toDartString()}');
         completer.complete(true);
@@ -106,7 +106,7 @@ class NativeFriendship extends BaseFriendship {
         debugPrint(
           'addFriend failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}',
         );
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('addFriend success: ${operationID.toDartString()}');
         completer.complete(true);
@@ -145,7 +145,7 @@ class NativeFriendship extends BaseFriendship {
         debugPrint(
           'checkFriend failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}',
         );
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('checkFriend success: ${operationID.toDartString()}');
         final result = jsonDecode(data.toDartString()).map((e) => FriendshipInfo.fromJson(e)).toList();
@@ -180,7 +180,7 @@ class NativeFriendship extends BaseFriendship {
         debugPrint(
           'deleteFriend failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}',
         );
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('deleteFriend success: ${operationID.toDartString()}');
         completer.complete(true);
@@ -213,7 +213,7 @@ class NativeFriendship extends BaseFriendship {
         debugPrint(
           'getBlacklist failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}',
         );
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('getBlacklist success: ${operationID.toDartString()}');
         final result = jsonDecode(data.toDartString()).map((e) => BlacklistInfo.fromJson(e)).toList();
@@ -246,7 +246,7 @@ class NativeFriendship extends BaseFriendship {
         debugPrint(
           'getFriendApplicationListAsApplicant failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}',
         );
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('getFriendApplicationListAsApplicant success: ${operationID.toDartString()}');
         final result = jsonDecode(data.toDartString()).map((e) => FriendApplicationInfo.fromJson(e)).toList();
@@ -279,7 +279,7 @@ class NativeFriendship extends BaseFriendship {
         debugPrint(
           'getFriendApplicationListAsRecipient failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}',
         );
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('getFriendApplicationListAsRecipient success: ${operationID.toDartString()}');
         final result = jsonDecode(data.toDartString()).map((e) => FriendApplicationInfo.fromJson(e)).toList();
@@ -324,7 +324,7 @@ class NativeFriendship extends BaseFriendship {
         debugPrint(
           'getFriendListMap failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}',
         );
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('getFriendListMap success: ${operationID.toDartString()}');
         final result = jsonDecode(data.toDartString());
@@ -372,7 +372,7 @@ class NativeFriendship extends BaseFriendship {
         debugPrint(
           'getFriendListPageMap failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}',
         );
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('getFriendListPageMap success: ${operationID.toDartString()}');
         final result = jsonDecode(data.toDartString());
@@ -410,7 +410,7 @@ class NativeFriendship extends BaseFriendship {
         debugPrint(
           'getFriendsInfo failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}',
         );
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('getFriendsInfo success: ${operationID.toDartString()}');
         final result = jsonDecode(data.toDartString()).map((e) => PublicUserInfo.fromJson(e)).toList();
@@ -433,12 +433,12 @@ class NativeFriendship extends BaseFriendship {
   }
 
   @override
-  Future<void> refuseFriendApplication({
+  Future<bool> refuseFriendApplication({
     required String userID,
     String? handleMsg,
     String? operationID,
   }) {
-    final completer = Completer<void>();
+    final completer = Completer<bool>();
     late final ffi.NativeCallable<CBSISSFunc> callback;
 
     void onResponse(
@@ -447,10 +447,10 @@ class NativeFriendship extends BaseFriendship {
         debugPrint(
           'refuseFriendApplication failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}',
         );
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('refuseFriendApplication success: ${operationID.toDartString()}');
-        completer.complete();
+        completer.complete(true);
       }
 
       callback.close();
@@ -485,7 +485,7 @@ class NativeFriendship extends BaseFriendship {
         debugPrint(
           'removeBlacklist failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}',
         );
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('removeBlacklist success: ${operationID.toDartString()}');
         completer.complete(true);
@@ -522,7 +522,7 @@ class NativeFriendship extends BaseFriendship {
         debugPrint(
           'searchFriends failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}',
         );
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('searchFriends success: ${operationID.toDartString()}');
         final result = jsonDecode(data.toDartString()).map((e) => SearchFriendsInfo.fromJson(e)).toList();
@@ -566,7 +566,7 @@ class NativeFriendship extends BaseFriendship {
         debugPrint(
           'setFriendRemark failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}',
         );
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('setFriendRemark success: ${operationID.toDartString()}');
         completer.complete();
@@ -587,12 +587,12 @@ class NativeFriendship extends BaseFriendship {
   }
 
   @override
-  Future<void> setFriendsEx(
+  Future<bool> setFriendsEx(
     List<String> friendIDs, {
     String? ex,
     String? operationID,
   }) {
-    final completer = Completer<void>();
+    final completer = Completer<bool>();
     final req = UpdateFriendsReq(friendUserIDs: friendIDs, ex: ex);
     late final ffi.NativeCallable<CBSISSFunc> callback;
 
@@ -602,10 +602,10 @@ class NativeFriendship extends BaseFriendship {
         debugPrint(
           'setFriendsEx failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}',
         );
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('setFriendsEx success: ${operationID.toDartString()}');
-        completer.complete();
+        completer.complete(true);
       }
 
       callback.close();
@@ -623,11 +623,11 @@ class NativeFriendship extends BaseFriendship {
   }
 
   @override
-  Future<void> updateFriends(
+  Future<bool> updateFriends(
     UpdateFriendsReq updateFriendsReq, {
     String? operationID,
   }) {
-    final completer = Completer<void>();
+    final completer = Completer<bool>();
     late final ffi.NativeCallable<CBSISSFunc> callback;
 
     void onResponse(
@@ -636,10 +636,10 @@ class NativeFriendship extends BaseFriendship {
         debugPrint(
           'updateFriends failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}',
         );
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('updateFriends success: ${operationID.toDartString()}');
-        completer.complete();
+        completer.complete(true);
       }
 
       callback.close();

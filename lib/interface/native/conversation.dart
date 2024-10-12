@@ -16,14 +16,13 @@ import '../../utils/sdk_bindings.dart';
 import '../base/base_conversation.dart';
 
 import 'package:flutter/foundation.dart'; // For debugPrint
-import 'package:ffi/ffi.dart';
 
 class NativeConversation extends BaseConversation {
   final _bindings = SDKBindings().bindings;
 
   // Function to set burn duration for a conversation
   @override
-  Future<void> setConversationBurnDuration({
+  Future<bool> setConversationBurnDuration({
     required String conversationID,
     int burnDuration = 30,
     String? operationID,
@@ -35,22 +34,22 @@ class NativeConversation extends BaseConversation {
 
   // Function to change input states
   @override
-  Future<void> changeInputStates({
+  Future<bool> changeInputStates({
     required String conversationID,
     required bool focus,
     String? operationID,
   }) {
-    final completer = Completer<void>();
+    final completer = Completer<bool>();
     late final ffi.NativeCallable<CBSISSFunc> callback;
 
     void onResponse(
         ffi.Pointer<ffi.Char> operationID, int errorCode, ffi.Pointer<ffi.Char> errorMsg, ffi.Pointer<ffi.Char> data) {
       if (errorCode > 0) {
         debugPrint('changeInputStates failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('changeInputStates success: ${operationID.toDartString()}, $errorCode');
-        completer.complete();
+        completer.complete(true);
       }
 
       callback.close();
@@ -70,11 +69,11 @@ class NativeConversation extends BaseConversation {
 
   // Function to clear conversation and delete all messages
   @override
-  Future<void> clearConversationAndDeleteAllMsg({
+  Future<bool> clearConversationAndDeleteAllMsg({
     required String conversationID,
     String? operationID,
   }) {
-    final completer = Completer<void>();
+    final completer = Completer<bool>();
     late final ffi.NativeCallable<CBSISSFunc> callback;
 
     void onResponse(
@@ -82,10 +81,10 @@ class NativeConversation extends BaseConversation {
       if (errorCode > 0) {
         debugPrint(
             'clearConversationAndDeleteAllMsg failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('clearConversationAndDeleteAllMsg success: ${operationID.toDartString()}, $errorCode');
-        completer.complete();
+        completer.complete(true);
       }
 
       callback.close();
@@ -104,7 +103,7 @@ class NativeConversation extends BaseConversation {
 
   // Function to delete all conversations from local storage
   @override
-  Future<void> deleteAllConversationFromLocal({
+  Future<bool> deleteAllConversationFromLocal({
     String? operationID,
   }) {
     return hideAllConversations(operationID: operationID);
@@ -112,11 +111,11 @@ class NativeConversation extends BaseConversation {
 
   // Function to delete a conversation and all its messages
   @override
-  Future<void> deleteConversationAndDeleteAllMsg({
+  Future<bool> deleteConversationAndDeleteAllMsg({
     required String conversationID,
     String? operationID,
   }) {
-    final completer = Completer<void>();
+    final completer = Completer<bool>();
     late final ffi.NativeCallable<CBSISSFunc> callback;
 
     void onResponse(
@@ -124,10 +123,10 @@ class NativeConversation extends BaseConversation {
       if (errorCode > 0) {
         debugPrint(
             'deleteConversationAndDeleteAllMsg failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('deleteConversationAndDeleteAllMsg success: ${operationID.toDartString()}, $errorCode');
-        completer.complete();
+        completer.complete(true);
       }
 
       callback.close();
@@ -157,7 +156,7 @@ class NativeConversation extends BaseConversation {
       if (errorCode > 0) {
         debugPrint(
             'getAllConversationList failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('getAllConversationList success: ${operationID.toDartString()}, $errorCode');
         // Convert the received data into List<ConversationInfo>
@@ -204,7 +203,7 @@ class NativeConversation extends BaseConversation {
       if (errorCode > 0) {
         debugPrint(
             'getConversationListSplit failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('getConversationListSplit success: ${operationID.toDartString()}, $errorCode');
         final list = jsonDecode(data.toDartString()).map((e) => ConversationInfo.fromJson(e)).toList();
@@ -240,7 +239,7 @@ class NativeConversation extends BaseConversation {
     //     ffi.Pointer<ffi.Char> operationID, int errorCode, ffi.Pointer<ffi.Char> errorMsg, ffi.Pointer<ffi.Char> data) {
     //   if (errorCode > 0) {
     //     debugPrint('getInputStates failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-    //     completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+    //     completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
     //   } else {
     //     debugPrint('getInputStates success: ${operationID.toDartString()}, $errorCode');
     //     List<int>? states = parseInputStates(data);
@@ -276,7 +275,7 @@ class NativeConversation extends BaseConversation {
       if (errorCode > 0) {
         debugPrint(
             'getMultipleConversation failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('getMultipleConversation success: ${operationID.toDartString()}, $errorCode');
         final list = jsonDecode(data.toDartString()).map((e) => ConversationInfo.fromJson(e)).toList();
@@ -311,7 +310,7 @@ class NativeConversation extends BaseConversation {
         ffi.Pointer<ffi.Char> operationID, int errorCode, ffi.Pointer<ffi.Char> errorMsg, ffi.Pointer<ffi.Char> data) {
       if (errorCode > 0) {
         debugPrint('getOneConversation failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('getOneConversation success: ${operationID.toDartString()}, $errorCode');
         final list = jsonDecode(data.toDartString()).map((e) => ConversationInfo.fromJson(e)).toList();
@@ -347,7 +346,7 @@ class NativeConversation extends BaseConversation {
       if (errorCode > 0) {
         debugPrint(
             'getTotalUnreadMsgCount failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('getTotalUnreadMsgCount success: ${operationID.toDartString()}, $errorCode');
         completer.complete(data.address); // Assuming data contains the count as an integer
@@ -368,10 +367,10 @@ class NativeConversation extends BaseConversation {
 
   // Function to hide all conversations
   @override
-  Future<void> hideAllConversations({
+  Future<bool> hideAllConversations({
     String? operationID,
   }) {
-    final completer = Completer<void>();
+    final completer = Completer<bool>();
     late final ffi.NativeCallable<CBSISSFunc> callback;
 
     void onResponse(
@@ -379,10 +378,10 @@ class NativeConversation extends BaseConversation {
       if (errorCode > 0) {
         debugPrint(
             'hideAllConversations failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('hideAllConversations success: ${operationID.toDartString()}, $errorCode');
-        completer.complete();
+        completer.complete(true);
       }
 
       callback.close();
@@ -400,21 +399,21 @@ class NativeConversation extends BaseConversation {
 
   // Function to hide a specific conversation
   @override
-  Future<void> hideConversation({
+  Future<bool> hideConversation({
     required String conversationID,
     String? operationID,
   }) {
-    final completer = Completer<void>();
+    final completer = Completer<bool>();
     late final ffi.NativeCallable<CBSISSFunc> callback;
 
     void onResponse(
         ffi.Pointer<ffi.Char> operationID, int errorCode, ffi.Pointer<ffi.Char> errorMsg, ffi.Pointer<ffi.Char> data) {
       if (errorCode > 0) {
         debugPrint('hideConversation failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('hideConversation success: ${operationID.toDartString()}, $errorCode');
-        completer.complete();
+        completer.complete(true);
       }
 
       callback.close();
@@ -433,11 +432,11 @@ class NativeConversation extends BaseConversation {
 
   // Function to mark a conversation's messages as read
   @override
-  Future<void> markConversationMessageAsRead({
+  Future<bool> markConversationMessageAsRead({
     required String conversationID,
     String? operationID,
   }) {
-    final completer = Completer<void>();
+    final completer = Completer<bool>();
     late final ffi.NativeCallable<CBSISSFunc> callback;
 
     void onResponse(
@@ -445,10 +444,10 @@ class NativeConversation extends BaseConversation {
       if (errorCode > 0) {
         debugPrint(
             'markConversationMessageAsRead failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('markConversationMessageAsRead success: ${operationID.toDartString()}, $errorCode');
-        completer.complete();
+        completer.complete(true);
       }
 
       callback.close();
@@ -467,7 +466,7 @@ class NativeConversation extends BaseConversation {
 
   // Function to pin a conversation
   @override
-  Future<void> pinConversation({
+  Future<bool> pinConversation({
     required String conversationID,
     required bool isPinned,
     String? operationID,
@@ -479,7 +478,7 @@ class NativeConversation extends BaseConversation {
 
   // Function to reset conversation group AT type
   @override
-  Future<void> resetConversationGroupAtType({
+  Future<bool> resetConversationGroupAtType({
     required String conversationID,
     String? operationID,
   }) {
@@ -490,22 +489,22 @@ class NativeConversation extends BaseConversation {
 
   // Function to set conversation settings
   @override
-  Future<void> setConversation(
+  Future<bool> setConversation(
     String conversationID,
     ConversationReq req, {
     String? operationID,
   }) async {
-    final completer = Completer<void>();
+    final completer = Completer<bool>();
     late final ffi.NativeCallable<CBSISSFunc> callback;
 
     void onResponse(
         ffi.Pointer<ffi.Char> operationID, int errorCode, ffi.Pointer<ffi.Char> errorMsg, ffi.Pointer<ffi.Char> data) {
       if (errorCode > 0) {
         debugPrint('setConversation failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('setConversation success: ${operationID.toDartString()}, $errorCode');
-        completer.complete();
+        completer.complete(true);
       }
 
       callback.close();
@@ -525,12 +524,12 @@ class NativeConversation extends BaseConversation {
 
   // Function to set conversation draft
   @override
-  Future<void> setConversationDraft({
+  Future<bool> setConversationDraft({
     required String conversationID,
     required String draftText,
     String? operationID,
   }) {
-    final completer = Completer<void>();
+    final completer = Completer<bool>();
     late final ffi.NativeCallable<CBSISSFunc> callback;
 
     void onResponse(
@@ -538,10 +537,10 @@ class NativeConversation extends BaseConversation {
       if (errorCode > 0) {
         debugPrint(
             'setConversationDraft failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        completer.completeError(IMSDKError(errorCode, errorMsg.toDartString()));
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('setConversationDraft success: ${operationID.toDartString()}, $errorCode');
-        completer.complete();
+        completer.complete(true);
       }
 
       callback.close();
@@ -561,7 +560,7 @@ class NativeConversation extends BaseConversation {
 
   // Function to set conversation extension data
   @override
-  Future<void> setConversationEx(
+  Future<bool> setConversationEx(
     String conversationID, {
     String? ex,
     String? operationID,
@@ -573,7 +572,7 @@ class NativeConversation extends BaseConversation {
 
   // Function to set whether the conversation messages are destructed
   @override
-  Future<void> setConversationIsMsgDestruct({
+  Future<bool> setConversationIsMsgDestruct({
     required String conversationID,
     bool isMsgDestruct = true,
     String? operationID,
@@ -584,7 +583,7 @@ class NativeConversation extends BaseConversation {
   }
 
   @override
-  Future setConversationMsgDestructTime({
+  Future<bool> setConversationMsgDestructTime({
     required String conversationID,
     int duration = 1 * 24 * 60 * 60,
     String? operationID,
@@ -595,7 +594,7 @@ class NativeConversation extends BaseConversation {
   }
 
   @override
-  Future setConversationPrivateChat({
+  Future<bool> setConversationPrivateChat({
     required String conversationID,
     required bool isPrivate,
     String? operationID,
@@ -606,7 +605,7 @@ class NativeConversation extends BaseConversation {
   }
 
   @override
-  Future setConversationRecvMessageOpt({
+  Future<bool> setConversationRecvMessageOpt({
     required String conversationID,
     required int status,
     String? operationID,

@@ -491,3 +491,178 @@ enum GroupRoleLevel {
     );
   }
 }
+
+/// Enum representing SDK error codes
+enum SDKErrorCode {
+  unknown(0),
+
+  /// Network Request Error
+  networkRequestError(10000),
+
+  /// Network Waiting Timeout Error
+  networkWaitTimeoutError(10001),
+
+  /// Parameter Error
+  parameterError(10002),
+
+  /// Context Timeout Error, usually when the user has already logged out
+  contextTimeoutError(10003),
+
+  /// Resources not loaded completely, usually uninitialized or login hasn't completed
+  resourceNotLoaded(10004),
+
+  /// Unknown Error, check the error message for details
+  unknownError(10005),
+
+  /// SDK Internal Error, check the error message for details
+  sdkInternalError(10006),
+
+  /// This user has set not to be added
+  refuseToAddFriends(10013),
+
+  /// User does not exist or is not registered
+  userNotExistOrNotRegistered(10100),
+
+  /// User has already logged out
+  userHasLoggedOut(10101),
+
+  /// User is attempting to log in again, check the login status to avoid duplicate logins
+  repeatLogin(10102),
+
+  /// The file to upload does not exist
+  uploadFileNotExist(10200),
+
+  /// Message decompression failed
+  messageDecompressionFailed(10201),
+
+  /// Message decoding failed
+  messageDecodingFailed(10202),
+
+  /// Unsupported long connection binary protocol
+  unsupportedLongConnection(10203),
+
+  /// Message sent multiple times
+  messageRepeated(10204),
+
+  /// Message content type not supported
+  messageContentTypeNotSupported(10205),
+
+  /// Unsupported session operation
+  unsupportedSessionOperation(10301),
+
+  /// Group ID does not exist
+  groupIDNotExist(10400),
+
+  /// Group type is incorrect
+  wrongGroupType(10401),
+
+  /// Server Internal Error, usually an internal network error, check if server nodes are running correctly
+  serverInternalError(500),
+
+  /// Parameter Error on the server, check if body and header parameters are correct
+  serverParameterError(1001),
+
+  /// Insufficient Permissions, typically when the token in the header is incorrect or when trying to perform unauthorized actions
+  insufficientPermissions(1002),
+
+  /// Duplicate Database Primary Key
+  duplicateDatabasePrimaryKey(1003),
+
+  /// Database Record Not Found
+  databaseRecordNotFound(1004),
+
+  /// User ID does not exist
+  userIDNotExist(1101),
+
+  /// User is already registered
+  userAlreadyRegistered(1102),
+
+  /// Group does not exist
+  groupNotExist(1201),
+
+  /// Group already exists
+  groupAlreadyExists(1202),
+
+  /// User is not in the group
+  userIsNotInGroup(1203),
+
+  /// Group has been disbanded
+  groupDisbanded(1204),
+
+  /// Group application has already been processed, no need to process it again
+  groupApplicationHasBeenProcessed(1206),
+
+  /// Cannot add yourself as a friend
+  notAddMyselfAsAFriend(1301),
+
+  /// You have been blocked by the other party
+  hasBeenBlocked(1302),
+
+  /// The other party is not your friend
+  notFriend(1303),
+
+  /// Already in a friend relationship, no need to reapply
+  alreadyAFriendRelationship(1304),
+
+  /// Message read function is turned off
+  messageReadFunctionIsTurnedOff(1401),
+
+  /// You have been banned from speaking in the group
+  youHaveBeenBanned(1402),
+
+  /// The group has been banned from posting
+  groupHasBeenBanned(1403),
+
+  /// This message has been retracted
+  messageHasBeenRetracted(1404),
+
+  /// Authorization has expired
+  licenseExpired(1405),
+
+  /// Token has expired
+  tokenHasExpired(1501),
+
+  /// Invalid token
+  tokenInvalid(1502),
+
+  /// Token format error
+  tokenFormatError(1503),
+
+  /// Token has not yet taken effect
+  tokenHasNotYetTakenEffect(1504),
+
+  /// Unknown token error
+  unknownTokenError(1505),
+
+  /// The kicked-out token is invalid
+  kickedOutTokenIsInvalid(1506),
+
+  /// Token does not exist
+  tokenNotExist(1507),
+
+  /// Number of Connections Exceeds Gateway's Maximum Limit
+  connectionsExceedsMaximumLimit(1601),
+
+  /// Handshake Parameter Error
+  handshakeParameterError(1602),
+
+  /// File Upload Expired
+  fileUploadExpired(1701),
+
+  /// Calling inviter is busy
+  callingInviterIsBusy(35001);
+
+  /// The numeric value representing this SDK error code
+  final int rawValue;
+
+  /// Constructor to bind SDK error code to its corresponding raw value
+  const SDKErrorCode(this.rawValue);
+
+  /// Retrieves the SDKErrorCode enum member from its numeric value
+  static SDKErrorCode fromValue(int rawValue) {
+    return SDKErrorCode.values.firstWhere(
+      (code) => code.rawValue == rawValue,
+      orElse: () => throw ArgumentError('Invalid SDK error code value: $rawValue'),
+    );
+  }
+}

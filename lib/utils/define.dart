@@ -1,5 +1,7 @@
 import 'dart:ffi' as ffi;
 
+import '../enum/enum.dart';
+
 typedef CBSFunc = ffi.Void Function(
   ffi.Pointer<ffi.Char>,
 );
@@ -26,7 +28,7 @@ typedef CBSISSIFunc = ffi.Void Function(
 );
 
 class IMSDKError extends Error {
-  final int code;
+  final SDKErrorCode code;
   final String? message;
 
   IMSDKError(
