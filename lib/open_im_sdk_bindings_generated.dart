@@ -1838,6 +1838,44 @@ class OpenImSdkBindings {
   late final _logout =
       _logoutPtr.asFunction<void Function(CB_S_I_S_S, ffi.Pointer<ffi.Char>)>();
 
+  void im_login(
+    CB_S_I_S_S cCallback,
+    ffi.Pointer<ffi.Char> operationID,
+    ffi.Pointer<ffi.Char> uid,
+    ffi.Pointer<ffi.Char> token,
+  ) {
+    return _im_login(
+      cCallback,
+      operationID,
+      uid,
+      token,
+    );
+  }
+
+  late final _im_loginPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(CB_S_I_S_S, ffi.Pointer<ffi.Char>,
+              ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>>('im_login');
+  late final _im_login = _im_loginPtr.asFunction<
+      void Function(CB_S_I_S_S, ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>,
+          ffi.Pointer<ffi.Char>)>();
+
+  void im_logout(
+    CB_S_I_S_S cCallback,
+    ffi.Pointer<ffi.Char> operationID,
+  ) {
+    return _im_logout(
+      cCallback,
+      operationID,
+    );
+  }
+
+  late final _im_logoutPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(CB_S_I_S_S, ffi.Pointer<ffi.Char>)>>('im_logout');
+  late final _im_logout = _im_logoutPtr
+      .asFunction<void Function(CB_S_I_S_S, ffi.Pointer<ffi.Char>)>();
+
   void set_app_background_status(
     CB_S_I_S_S cCallback,
     ffi.Pointer<ffi.Char> operationID,
@@ -3113,6 +3151,31 @@ class OpenImSdkBindings {
   late final _set_message_local_ex = _set_message_local_exPtr.asFunction<
       void Function(CB_S_I_S_S, ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>,
           ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>();
+
+  void get_input_states(
+    CB_S_I_S_S cCallback,
+    ffi.Pointer<ffi.Char> operationID,
+    ffi.Pointer<ffi.Char> conversationID,
+    ffi.Pointer<ffi.Char> userID,
+  ) {
+    return _get_input_states(
+      cCallback,
+      operationID,
+      conversationID,
+      userID,
+    );
+  }
+
+  late final _get_input_statesPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              CB_S_I_S_S,
+              ffi.Pointer<ffi.Char>,
+              ffi.Pointer<ffi.Char>,
+              ffi.Pointer<ffi.Char>)>>('get_input_states');
+  late final _get_input_states = _get_input_statesPtr.asFunction<
+      void Function(CB_S_I_S_S, ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>,
+          ffi.Pointer<ffi.Char>)>();
 
   void get_users_info(
     CB_S_I_S_S cCallback,

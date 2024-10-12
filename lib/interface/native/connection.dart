@@ -75,7 +75,7 @@ class NativeConnection extends BaseConnection {
 
     callback = ffi.NativeCallable<CBSISSFunc>.listener(onResponse);
 
-    _bindings.login(
+    _bindings.im_login(
       callback.nativeFunction,
       Utils.reviseToNativeOperationID(operationID),
       userID.toNativeChar(),
@@ -105,7 +105,7 @@ class NativeConnection extends BaseConnection {
 
     callback = ffi.NativeCallable<CBSISSFunc>.listener(onResponse);
 
-    _bindings.logout(callback.nativeFunction, Utils.reviseToNativeOperationID(operationID));
+    _bindings.im_logout(callback.nativeFunction, Utils.reviseToNativeOperationID(operationID));
 
     return completer.future;
   }

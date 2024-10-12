@@ -233,30 +233,30 @@ class NativeConversation extends BaseConversation {
     String? operationID,
   }) async {
     final completer = Completer<List<int>?>();
-    // late final ffi.NativeCallable<CBSISSFunc> callback;
+    late final ffi.NativeCallable<CBSISSFunc> callback;
 
-    // void onResponse(
-    //     ffi.Pointer<ffi.Char> operationID, int errorCode, ffi.Pointer<ffi.Char> errorMsg, ffi.Pointer<ffi.Char> data) {
-    //   if (errorCode > 0) {
-    //     debugPrint('getInputStates failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-    //     completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
-    //   } else {
-    //     debugPrint('getInputStates success: ${operationID.toDartString()}, $errorCode');
-    //     List<int>? states = parseInputStates(data);
-    //     completer.complete(states);
-    //   }
+    void onResponse(
+        ffi.Pointer<ffi.Char> operationID, int errorCode, ffi.Pointer<ffi.Char> errorMsg, ffi.Pointer<ffi.Char> data) {
+      if (errorCode > 0) {
+        debugPrint('getInputStates failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
+        completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
+      } else {
+        debugPrint('getInputStates success: ${operationID.toDartString()}, $errorCode');
+        final states = jsonDecode(data.toDartString()).map((e) => e as int).toList();
+        completer.complete(states);
+      }
 
-    //   callback.close();
-    // }
+      callback.close();
+    }
 
-    // callback = ffi.NativeCallable<CBSISSFunc>.listener(onResponse);
+    callback = ffi.NativeCallable<CBSISSFunc>.listener(onResponse);
 
-    // _bindings.get_input_states(
-    //   callback.nativeFunction,
-    //   Utils.reviseToNativeOperationID(operationID),
-    //   conversationID.toNativeUtf8(),
-    //   userID.toNativeUtf8(),
-    // );
+    _bindings.get_input_states(
+      callback.nativeFunction,
+      Utils.reviseToNativeOperationID(operationID),
+      conversationID.toNativeChar(),
+      userID.toNativeChar(),
+    );
 
     return completer.future;
   }

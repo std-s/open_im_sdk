@@ -101,6 +101,8 @@ extern GoUint8 init_sdk(CB_I_S cCallback, char* operationID, char* config);
 extern void un_init_sdk(char* operationID);
 extern void login(CB_S_I_S_S cCallback, char* operationID, char* uid, char* token);
 extern void logout(CB_S_I_S_S cCallback, char* operationID);
+extern void im_login(CB_S_I_S_S cCallback, char* operationID, char* uid, char* token);
+extern void im_logout(CB_S_I_S_S cCallback, char* operationID);
 extern void set_app_background_status(CB_S_I_S_S cCallback, char* operationID, int isBackground);
 extern void network_status_changed(CB_S_I_S_S cCallback, char* operationID);
 extern GoInt get_login_status(char* operationID);
@@ -157,6 +159,7 @@ extern void insert_single_message_to_local_storage(CB_S_I_S_S cCallback, char* o
 extern void insert_group_message_to_local_storage(CB_S_I_S_S cCallback, char* operationID, char* message, char* groupID, char* sendID);
 extern void search_local_messages(CB_S_I_S_S cCallback, char* operationID, char* searchParam);
 extern void set_message_local_ex(CB_S_I_S_S cCallback, char* operationID, char* conversationID, char* clientMsgID, char* localEx);
+extern void get_input_states(CB_S_I_S_S cCallback, char* operationID, char* conversationID, char* userID);
 extern void get_users_info(CB_S_I_S_S cCallback, char* operationID, char* userIDs);
 extern void set_self_info(CB_S_I_S_S cCallback, char* operationID, char* userInfo);
 extern void get_self_user_info(CB_S_I_S_S cCallback, char* operationID);
