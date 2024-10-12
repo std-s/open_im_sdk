@@ -22,6 +22,7 @@ export 'interface/web/friendship.dart';
 
 export 'model/init_config.dart';
 export 'model/message.dart';
+export 'model/notification_info.dart';
 export 'model/group_info.dart';
 export 'model/user_info.dart';
 export 'model/conversation_info.dart';

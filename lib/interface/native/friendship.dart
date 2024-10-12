@@ -327,7 +327,8 @@ class NativeFriendship extends BaseFriendship {
         completer.completeError(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
       } else {
         debugPrint('getFriendListMap success: ${operationID.toDartString()}');
-        final result = jsonDecode(data.toDartString());
+        final json = jsonDecode(data.toDartString()) as List?;
+        final result = json?.map<Map<String, dynamic>>((e) => e as Map<String, dynamic>).toList();
         completer.complete(result);
       }
 
