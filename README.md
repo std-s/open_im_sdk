@@ -1,6 +1,6 @@
 # open_im_sdk
 
-A new Flutter project.
+iOS / Android / Windows / MacOS / Linux.
 
 ## Getting Started
 
