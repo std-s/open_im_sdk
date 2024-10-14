@@ -5,7 +5,7 @@ import '../base/base_user.dart';
 
 class WebUser extends BaseUser {
   @override
-  Future<UserInfo> getSelfUserInfo({String? operationID}) {
+  Future<UserInfo?> getSelfUserInfo({String? operationID}) {
     // TODO: implement getSelfUserInfo
     throw UnimplementedError();
   }

@@ -1800,13 +1800,13 @@ class OpenImSdkBindings {
   late final _un_init_sdk =
       _un_init_sdkPtr.asFunction<void Function(ffi.Pointer<ffi.Char>)>();
 
-  void login(
+  void custom_login(
     CB_S_I_S_S cCallback,
     ffi.Pointer<ffi.Char> operationID,
     ffi.Pointer<ffi.Char> uid,
     ffi.Pointer<ffi.Char> token,
   ) {
-    return _login(
+    return _custom_login(
       cCallback,
       operationID,
       uid,
@@ -1814,29 +1814,30 @@ class OpenImSdkBindings {
     );
   }
 
-  late final _loginPtr = _lookup<
+  late final _custom_loginPtr = _lookup<
       ffi.NativeFunction<
           ffi.Void Function(CB_S_I_S_S, ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>>('login');
-  late final _login = _loginPtr.asFunction<
+              ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>>('custom_login');
+  late final _custom_login = _custom_loginPtr.asFunction<
       void Function(CB_S_I_S_S, ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>,
           ffi.Pointer<ffi.Char>)>();
 
-  void logout(
+  void custom_logout(
     CB_S_I_S_S cCallback,
     ffi.Pointer<ffi.Char> operationID,
   ) {
-    return _logout(
+    return _custom_logout(
       cCallback,
       operationID,
     );
   }
 
-  late final _logoutPtr = _lookup<
+  late final _custom_logoutPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Void Function(CB_S_I_S_S, ffi.Pointer<ffi.Char>)>>('logout');
-  late final _logout =
-      _logoutPtr.asFunction<void Function(CB_S_I_S_S, ffi.Pointer<ffi.Char>)>();
+          ffi.Void Function(
+              CB_S_I_S_S, ffi.Pointer<ffi.Char>)>>('custom_logout');
+  late final _custom_logout = _custom_logoutPtr
+      .asFunction<void Function(CB_S_I_S_S, ffi.Pointer<ffi.Char>)>();
 
   void im_login(
     CB_S_I_S_S cCallback,
@@ -3151,6 +3152,28 @@ class OpenImSdkBindings {
   late final _set_message_local_ex = _set_message_local_exPtr.asFunction<
       void Function(CB_S_I_S_S, ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>,
           ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>();
+
+  void change_input_states(
+    CB_S_I_S_S cCallback,
+    ffi.Pointer<ffi.Char> operationID,
+    ffi.Pointer<ffi.Char> conversationID,
+    int inputStatus,
+  ) {
+    return _change_input_states(
+      cCallback,
+      operationID,
+      conversationID,
+      inputStatus,
+    );
+  }
+
+  late final _change_input_statesPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(CB_S_I_S_S, ffi.Pointer<ffi.Char>,
+              ffi.Pointer<ffi.Char>, ffi.Int)>>('change_input_states');
+  late final _change_input_states = _change_input_statesPtr.asFunction<
+      void Function(
+          CB_S_I_S_S, ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>, int)>();
 
   void get_input_states(
     CB_S_I_S_S cCallback,

@@ -25,7 +25,7 @@ class WebFriendship implements BaseFriendship {
   }
 
   @override
-  Future<List<FriendshipInfo>> checkFriend({required List<String> userIDs, String? operationID}) {
+  Future<List<FriendshipInfo>?> checkFriend({required List<String> userIDs, String? operationID}) {
     // TODO: implement checkFriend
     throw UnimplementedError();
   }
@@ -37,25 +37,25 @@ class WebFriendship implements BaseFriendship {
   }
 
   @override
-  Future<List<BlacklistInfo>> getBlacklist({String? operationID}) {
+  Future<List<BlacklistInfo>?> getBlacklist({String? operationID}) {
     // TODO: implement getBlacklist
     throw UnimplementedError();
   }
 
   @override
-  Future<List<FriendApplicationInfo>> getFriendApplicationListAsApplicant({String? operationID}) {
+  Future<List<FriendApplicationInfo>?> getFriendApplicationListAsApplicant({String? operationID}) {
     // TODO: implement getFriendApplicationListAsApplicant
     throw UnimplementedError();
   }
 
   @override
-  Future<List<FriendApplicationInfo>> getFriendApplicationListAsRecipient({String? operationID}) {
+  Future<List<FriendApplicationInfo>?> getFriendApplicationListAsRecipient({String? operationID}) {
     // TODO: implement getFriendApplicationListAsRecipient
     throw UnimplementedError();
   }
 
   @override
-  Future<List<PublicUserInfo>?> getFriendList({String? operationID, bool filterBlack = false}) {
+  Future<List<FriendInfo>?> getFriendList({String? operationID, bool filterBlack = false}) {
     // TODO: implement getFriendList
     throw UnimplementedError();
   }
@@ -67,7 +67,7 @@ class WebFriendship implements BaseFriendship {
   }
 
   @override
-  Future<List<PublicUserInfo>?> getFriendListPage({bool filterBlack = false, int offset = 0, int count = 40, String? operationID}) {
+  Future<List<FriendInfo>?> getFriendListPage({bool filterBlack = false, int offset = 0, int count = 40, String? operationID}) {
     // TODO: implement getFriendListPage
     throw UnimplementedError();
   }
@@ -79,7 +79,7 @@ class WebFriendship implements BaseFriendship {
   }
 
   @override
-  Future<List<PublicUserInfo>> getFriendsInfo({required List<String> userIDs, bool filterBlack = false, String? operationID}) {
+  Future<List<PublicUserInfo>?> getFriendsInfo({required List<String> userIDs, bool filterBlack = false, String? operationID}) {
     // TODO: implement getFriendsInfo
     throw UnimplementedError();
   }
@@ -102,13 +102,13 @@ class WebFriendship implements BaseFriendship {
   }
 
   @override
-  Future<List<SearchFriendsInfo>> searchFriends({List<String> keywords = const [], bool isSearchUserID = false, bool isSearchNickname = false, bool isSearchRemark = false, String? operationID}) {
+  Future<List<SearchFriendsInfo>?> searchFriends({List<String> keywords = const [], bool isSearchUserID = false, bool isSearchNickname = false, bool isSearchRemark = false, String? operationID}) {
     // TODO: implement searchFriends
     throw UnimplementedError();
   }
 
   @override
-  Future setFriendRemark({required String userID, required String remark, String? operationID}) {
+  Future<bool> setFriendRemark({required String userID, required String remark, String? operationID}) {
     // TODO: implement setFriendRemark
     throw UnimplementedError();
   }

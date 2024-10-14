@@ -159,6 +159,7 @@ extern void insert_single_message_to_local_storage(CB_S_I_S_S cCallback, char* o
 extern void insert_group_message_to_local_storage(CB_S_I_S_S cCallback, char* operationID, char* message, char* groupID, char* sendID);
 extern void search_local_messages(CB_S_I_S_S cCallback, char* operationID, char* searchParam);
 extern void set_message_local_ex(CB_S_I_S_S cCallback, char* operationID, char* conversationID, char* clientMsgID, char* localEx);
+extern void change_input_states(CB_S_I_S_S cCallback, char* operationID, char* conversationID, int inputStatus);
 extern void get_input_states(CB_S_I_S_S cCallback, char* operationID, char* conversationID, char* userID);
 extern void get_users_info(CB_S_I_S_S cCallback, char* operationID, char* userIDs);
 extern void set_self_info(CB_S_I_S_S cCallback, char* operationID, char* userInfo);

@@ -5,14 +5,14 @@ import 'base_listener.dart';
 
 abstract class BaseConversation implements BaseListener {
   /// Retrieves all conversations.
-  Future<List<ConversationInfo>> getAllConversationList({
+  Future<List<ConversationInfo>?> getAllConversationList({
     String? operationID,
   });
 
   /// Retrieves conversations with pagination.
   /// [offset] Starting index.
   /// [count] Number of items per page.
-  Future<List<ConversationInfo>> getConversationListSplit({
+  Future<List<ConversationInfo>?> getConversationListSplit({
     int offset = 0,
     int count = 20,
     String? operationID,
@@ -21,7 +21,7 @@ abstract class BaseConversation implements BaseListener {
   /// Retrieves a conversation. If the conversation does not exist, it will be created automatically.
   /// [sourceID] If it's a one-on-one conversation, pass userID; if it's a group conversation, pass GroupID.
   /// [sessionType] Reference to [ConversationType].
-  Future<ConversationInfo> getOneConversation({
+  Future<ConversationInfo?> getOneConversation({
     required String sourceID,
     required ConversationType sessionType,
     String? operationID,
@@ -29,7 +29,7 @@ abstract class BaseConversation implements BaseListener {
 
   /// Retrieves multiple conversations by their IDs.
   /// [conversationIDList] List of conversation IDs.
-  Future<List<ConversationInfo>> getMultipleConversation({
+  Future<List<ConversationInfo>?> getMultipleConversation({
     required List<String> conversationIDs,
     String? operationID,
   });

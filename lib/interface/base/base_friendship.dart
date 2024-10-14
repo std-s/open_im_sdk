@@ -7,7 +7,7 @@ abstract class BaseFriendship implements BaseListener {
   /// Query Friend Information
   /// [userIDs] List of user IDs
   /// [filterBlack] Filter blacklisted users
-  Future<List<PublicUserInfo>> getFriendsInfo({
+  Future<List<PublicUserInfo>?> getFriendsInfo({
     required List<String> userIDs,
     bool filterBlack = false,
     String? operationID,
@@ -23,22 +23,22 @@ abstract class BaseFriendship implements BaseListener {
   });
 
   /// Get Friend Requests Sent to Me
-  Future<List<FriendApplicationInfo>> getFriendApplicationListAsRecipient({
+  Future<List<FriendApplicationInfo>?> getFriendApplicationListAsRecipient({
     String? operationID,
   });
 
   /// Get Friend Requests Sent by Me
-  Future<List<FriendApplicationInfo>> getFriendApplicationListAsApplicant({
+  Future<List<FriendApplicationInfo>?> getFriendApplicationListAsApplicant({
     String? operationID,
   });
 
   /// Get Friend List, including friends who have been put into the blacklist
-  Future<List<PublicUserInfo>?> getFriendList({
+  Future<List<FriendInfo>?> getFriendList({
     String? operationID,
     bool filterBlack = false,
   });
 
-  Future<List<PublicUserInfo>?> getFriendListPage({
+  Future<List<FriendInfo>?> getFriendListPage({
     bool filterBlack = false,
     int offset = 0,
     int count = 40,
@@ -61,7 +61,7 @@ abstract class BaseFriendship implements BaseListener {
   /// [userID] Friend's userID
   /// [remark] Friend's remark
   @Deprecated('Use [updateFriends] instead')
-  Future<dynamic> setFriendRemark({
+  Future<bool> setFriendRemark({
     required String userID,
     required String remark,
     String? operationID,
@@ -76,7 +76,7 @@ abstract class BaseFriendship implements BaseListener {
   });
 
   /// Get Blacklist
-  Future<List<BlacklistInfo>> getBlacklist({
+  Future<List<BlacklistInfo>?> getBlacklist({
     String? operationID,
   });
 
@@ -89,7 +89,7 @@ abstract class BaseFriendship implements BaseListener {
 
   /// Check Friendship Status
   /// [userIDs] List of user IDs
-  Future<List<FriendshipInfo>> checkFriend({
+  Future<List<FriendshipInfo>?> checkFriend({
     required List<String> userIDs,
     String? operationID,
   });
@@ -124,7 +124,7 @@ abstract class BaseFriendship implements BaseListener {
   /// [isSearchUserID] Whether to search for friend IDs with keywords
   /// [isSearchNickname] Whether to search by nickname with keywords
   /// [isSearchRemark] Whether to search by remark name with keywords
-  Future<List<SearchFriendsInfo>> searchFriends({
+  Future<List<SearchFriendsInfo>?> searchFriends({
     List<String> keywords = const [],
     bool isSearchUserID = false,
     bool isSearchNickname = false,

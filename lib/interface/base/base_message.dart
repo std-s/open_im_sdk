@@ -72,7 +72,7 @@ abstract class BaseMessage implements BaseListener {
   /// [groupID] Group ID
   /// [senderID] Sender's ID
   /// [message] Message content
-  Future<Message> insertGroupMessageToLocalStorage({
+  Future<Message?> insertGroupMessageToLocalStorage({
     required Message message,
     String? groupID,
     String? senderID,
@@ -115,7 +115,7 @@ abstract class BaseMessage implements BaseListener {
   /// [startMsg] Query [count] messages starting from this message. The message at index == length - 1 is the latest message, so to get the next page of history, use startMsg = list.first
   /// [count] Total number of messages to retrieve in one request
   /// [lastMinSeq] Not required for the first page of messages, but necessary for getting the second page of history. Same as [startMsg]
-  Future<AdvancedMessage> getAdvancedHistoryMessageList({
+  Future<AdvancedMessage?> getAdvancedHistoryMessageList({
     required String conversationID,
     Message? startMsg,
     int lastMinSeq = 0,
@@ -127,7 +127,7 @@ abstract class BaseMessage implements BaseListener {
   /// [conversationID] Conversation ID, can be used for querying notifications
   /// [startMsg] Query [count] messages starting from this message. The message at index == length - 1 is the latest message, so to get the next page of history, use startMsg = list.last
   /// [count] Total number of messages to retrieve in one request
-  Future<AdvancedMessage> getAdvancedHistoryMessageListReverse({
+  Future<AdvancedMessage?> getAdvancedHistoryMessageListReverse({
     required String conversationID,
     Message? startMsg,
     int lastMinSeq = 0,

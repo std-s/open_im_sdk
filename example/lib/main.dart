@@ -200,8 +200,11 @@ class _MyAppState extends State<MyApp> {
           });
         }),
         _buildWrapItem('GetSelfUserInfo', () async {
-          final usersInfo = await IMManager().user.getSelfUserInfo();
-          print(usersInfo.toJson());
+          final usersInfo = await IMManager().user.getSelfUserInfo().catchError((error) {
+            debugPrint(error.toString());
+            return null;
+          });
+          print(usersInfo?.toJson());
         }),
         _buildWrapItem('SetSelfInfo', () async {
           IMManager().user.setSelfInfo(nickname: 'test').onError((error, s) {
@@ -260,7 +263,7 @@ class _MyAppState extends State<MyApp> {
                 receiverID: '247428675',
                 senderID: '6105455334',
               )
-              .onError((error, s) {
+              .catchError((error) {
             if (error is IMSDKError) {
               debugPrint(error.message);
             }

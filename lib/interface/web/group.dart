@@ -36,49 +36,49 @@ class WebGroup implements BaseGroup {
   }
 
   @override
-  Future<List<GroupApplicationInfo>> getGroupApplicationListAsApplicant({String? operationID}) {
+  Future<List<GroupApplicationInfo>?> getGroupApplicationListAsApplicant({String? operationID}) {
     // TODO: implement getGroupApplicationListAsApplicant
     throw UnimplementedError();
   }
 
   @override
-  Future<List<GroupApplicationInfo>> getGroupApplicationListAsRecipient({String? operationID}) {
+  Future<List<GroupApplicationInfo>?> getGroupApplicationListAsRecipient({String? operationID}) {
     // TODO: implement getGroupApplicationListAsRecipient
     throw UnimplementedError();
   }
 
   @override
-  Future<List<GroupMembersInfo>> getGroupMemberList({required String groupID, GroupMemberFilter filter = GroupMemberFilter.all, int offset = 0, int count = 0, String? operationID}) {
+  Future<List<GroupMembersInfo>?> getGroupMemberList({required String groupID, GroupMemberFilter filter = GroupMemberFilter.all, int offset = 0, int count = 0, String? operationID}) {
     // TODO: implement getGroupMemberList
     throw UnimplementedError();
   }
 
   @override
-  Future<List<GroupMembersInfo>> getGroupMemberListByJoinTime({required String groupID, int offset = 0, int count = 0, int joinTimeBegin = 0, int joinTimeEnd = 0, List<String> filterUserIDs = const [], String? operationID}) {
+  Future<List<GroupMembersInfo>?> getGroupMemberListByJoinTime({required String groupID, int offset = 0, int count = 0, int joinTimeBegin = 0, int joinTimeEnd = 0, List<String> filterUserIDs = const [], String? operationID}) {
     // TODO: implement getGroupMemberListByJoinTime
     throw UnimplementedError();
   }
 
   @override
-  Future<List> getGroupMemberListMap({required String groupID, GroupMemberFilter filter = GroupMemberFilter.all, int offset = 0, int count = 0, String? operationID}) {
+  Future<List?> getGroupMemberListMap({required String groupID, GroupMemberFilter filter = GroupMemberFilter.all, int offset = 0, int count = 0, String? operationID}) {
     // TODO: implement getGroupMemberListMap
     throw UnimplementedError();
   }
 
   @override
-  Future<List<GroupMembersInfo>> getGroupMembersInfo({required String groupID, required List<String> userIDs, String? operationID}) {
+  Future<List<GroupMembersInfo>?> getGroupMembersInfo({required String groupID, required List<String> userIDs, String? operationID}) {
     // TODO: implement getGroupMembersInfo
     throw UnimplementedError();
   }
 
   @override
-  Future<List<GroupMembersInfo>> getGroupOwnerAndAdmin({required String groupID, String? operationID}) {
+  Future<List<GroupMembersInfo>?> getGroupOwnerAndAdmin({required String groupID, String? operationID}) {
     // TODO: implement getGroupOwnerAndAdmin
     throw UnimplementedError();
   }
 
   @override
-  Future<List<GroupInfo>> getGroupsInfo({required List<String> groupIDs, String? operationID}) {
+  Future<List<GroupInfo>?> getGroupsInfo({required List<String> groupIDs, String? operationID}) {
     // TODO: implement getGroupsInfo
     throw UnimplementedError();
   }
@@ -90,13 +90,13 @@ class WebGroup implements BaseGroup {
   }
 
   @override
-  Future<List> getJoinedGroupListMap({String? operationID}) {
+  Future<List<Map<String, dynamic>>?> getJoinedGroupListMap({String? operationID}) {
     // TODO: implement getJoinedGroupListMap
     throw UnimplementedError();
   }
 
   @override
-  Future<List<GroupInfo>> getJoinedGroupListPage({String? operationID, int offset = 0, int count = 40}) {
+  Future<List<GroupInfo>?> getJoinedGroupListPage({String? operationID, int offset = 0, int count = 40}) {
     // TODO: implement getJoinedGroupListPage
     throw UnimplementedError();
   }
@@ -126,7 +126,7 @@ class WebGroup implements BaseGroup {
   }
 
   @override
-  Future<List<GroupInviteResult>> kickGroupMember({required String groupID, required List<String> userIDs, String? reason, String? operationID}) {
+  Future<List<GroupInviteResult>?> kickGroupMember({required String groupID, required List<String> userIDs, String? reason, String? operationID}) {
     // TODO: implement kickGroupMember
     throw UnimplementedError();
   }
@@ -149,19 +149,19 @@ class WebGroup implements BaseGroup {
   }
 
   @override
-  Future<List<GroupMembersInfo>> searchGroupMembers({required String groupID, List<String> keywords = const [], bool isSearchUserID = false, bool isSearchMemberNickname = false, int offset = 0, int count = 40, String? operationID}) {
+  Future<List<GroupMembersInfo>?> searchGroupMembers({required String groupID, List<String> keywords = const [], bool isSearchUserID = false, bool isSearchMemberNickname = false, int offset = 0, int count = 40, String? operationID}) {
     // TODO: implement searchGroupMembers
     throw UnimplementedError();
   }
 
   @override
-  Future<List> searchGroupMembersListMap({required String groupID, List<String> keywords = const [], bool isSearchUserID = false, bool isSearchMemberNickname = false, int offset = 0, int count = 40, String? operationID}) {
+  Future<List<Map<String, dynamic>>?> searchGroupMembersListMap({required String groupID, List<String> keywords = const [], bool isSearchUserID = false, bool isSearchMemberNickname = false, int offset = 0, int count = 40, String? operationID}) {
     // TODO: implement searchGroupMembersListMap
     throw UnimplementedError();
   }
 
   @override
-  Future<List<GroupInfo>> searchGroups({List<String> keywords = const [], bool isSearchGroupID = false, bool isSearchGroupName = false, String? operationID}) {
+  Future<List<GroupInfo>?> searchGroups({List<String> keywords = const [], bool isSearchGroupID = false, bool isSearchGroupName = false, String? operationID}) {
     // TODO: implement searchGroups
     throw UnimplementedError();
   }

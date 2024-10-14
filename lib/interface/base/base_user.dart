@@ -12,7 +12,7 @@ abstract class BaseUser implements BaseListener {
   });
 
   /// Get the information of the currently logged-in user
-  Future<UserInfo> getSelfUserInfo({
+  Future<UserInfo?> getSelfUserInfo({
     String? operationID,
   });
 

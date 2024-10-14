@@ -1,3 +1,6 @@
+#define login custom_login
+#define logout custom_logout
+
 #include "openimsdk.h"
 
 #if _WIN32
