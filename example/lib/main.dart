@@ -29,9 +29,9 @@ class _MyAppState extends State<MyApp> {
         dataDir: dic.path,
         logFilePath: '${dic.path}/log',
       );
-      OpenIM.manager.connection.initSDK(params);
+      OpenIM.iMManager.connection.initSDK(params);
 
-      OpenIM.manager.connection.setListener(OnConnectListener(onConnecting: () {
+      OpenIM.iMManager.connection.setListener(OnConnectListener(onConnecting: () {
         debugPrint('onConnecting');
       }, onConnectSuccess: () {
         debugPrint('onConnectSuccess');
