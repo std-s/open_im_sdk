@@ -37,6 +37,7 @@ class Utils {
         }
       } else {
         final dataString = data.toDartString();
+
         debugPrint(
             'Native CBSISS return success: ${operationID.toDartString()}, $errorCode, $dataString[${dataString.length}]');
 
@@ -74,19 +75,21 @@ class Utils {
       int progress,
     ) {
       if (errorCode > 0) {
-        debugPrint('Native CBSISSI failed: $operationID, $errorCode, ${errorMsg.toDartString()}');
+        debugPrint('Native CBSISSI failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
         onError.call(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
 
         if (errorMsg != ffi.nullptr) {
           calloc.free(errorMsg);
         }
       } else {
-        debugPrint('Native CBSISSI success: $operationID, $errorCode, ${data.toDartString()}');
+        final dataString = data.toDartString();
+
+        debugPrint(
+            'Native CBSISSI success: ${operationID.toDartString()}, $errorCode, $dataString[${dataString.length}]');
 
         if (progress > 0) {
           onProgress.call(progress);
         }
-        final dataString = data.toDartString();
 
         if (dataString.isNotEmpty) {
           final json = jsonDecode(dataString);

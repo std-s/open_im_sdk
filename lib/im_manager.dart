@@ -22,9 +22,7 @@ import 'interface/web/user.dart';
 class OpenIM {
   static const version = '3.8.1';
 
-  static IMManager manager = IMManager();
-
-  static IMManager get iMManager => manager;
+  static IMManager iMManager = IMManager();
 }
 
 class IMManager {
