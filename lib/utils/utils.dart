@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:ffi' as ffi;
 import 'dart:ffi';
+import 'dart:io';
 
 import 'package:ffi/ffi.dart';
 import 'package:flutter/foundation.dart';
@@ -36,7 +37,9 @@ class Utils {
         onError.call(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsgString));
 
         if (errorMsg != ffi.nullptr) {
-          calloc.free(errorMsg);
+          if (!Platform.isWindows) {
+            calloc.free(errorMsg);
+          }
         }
       } else {
         final dataString = data.toDartString();
@@ -49,12 +52,16 @@ class Utils {
         }
 
         if (data != ffi.nullptr) {
-          calloc.free(data);
+          if (!Platform.isWindows) {
+            calloc.free(data);
+          }
         }
       }
 
       if (operationID != ffi.nullptr) {
-        calloc.free(operationID);
+        if (!Platform.isWindows) {
+          calloc.free(operationID);
+        }
       }
 
       callback.close();
@@ -84,7 +91,9 @@ class Utils {
         onError.call(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
 
         if (errorMsg != ffi.nullptr) {
-          calloc.free(errorMsg);
+          if (!Platform.isWindows) {
+            calloc.free(errorMsg);
+          }
         }
       } else {
         final dataString = data.toDartString();
@@ -102,12 +111,16 @@ class Utils {
         }
 
         if (data != ffi.nullptr) {
-          calloc.free(data);
+          if (!Platform.isWindows) {
+            calloc.free(data);
+          }
         }
       }
 
       if (operationID != ffi.nullptr) {
-        calloc.free(operationID);
+        if (!Platform.isWindows) {
+          calloc.free(operationID);
+        }
       }
       callback.close();
     }
