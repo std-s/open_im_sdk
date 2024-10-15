@@ -1,56 +1,60 @@
 import '../open_im_sdk.dart';
 
-/// OA notification
+/// Represents a notification from OA (Office Automation).
 class OANotification {
-  /// Title
+  /// The title of the notification.
   String? notificationName;
 
-  /// Avatar
+  /// The URL of the notification's avatar.
   String? notificationFaceURL;
 
-  /// Type
+  /// The type of notification.
   int? notificationType;
 
-  /// Text content
+  /// The text content of the notification.
   String? text;
 
-  /// Redirect link
+  /// A URL to redirect when the notification is clicked.
   String? externalUrl;
 
+  /// The type of notification content.
   /// 0: Text-only notification
   /// 1: Text + Image notification
   /// 2: Text + Video notification
   /// 3: Text + File notification
   int? mixType;
 
-  /// Image information
+  /// Information about an image associated with the notification.
   PictureElem? pictureElem;
 
-  /// Sound information
+  /// Information about sound associated with the notification.
   SoundElem? soundElem;
 
-  /// Video information
+  /// Information about a video associated with the notification.
   VideoElem? videoElem;
 
-  /// File information
+  /// Information about a file associated with the notification.
   FileElem? fileElem;
 
-  /// Additional field
+  /// Additional information for the notification.
   String? ex;
 
-  OANotification(
-      {this.notificationName,
-      this.notificationFaceURL,
-      this.notificationType,
-      this.text,
-      this.externalUrl,
-      this.mixType,
-      this.pictureElem,
-      this.soundElem,
-      this.videoElem,
-      this.fileElem,
-      this.ex});
+  /// Constructor for [OANotification].
+  OANotification({
+    this.notificationName,
+    this.notificationFaceURL,
+    this.notificationType,
+    this.text,
+    this.externalUrl,
+    this.mixType,
+    this.pictureElem,
+    this.soundElem,
+    this.videoElem,
+    this.fileElem,
+    this.ex,
+  });
 
+  /// Creates an instance of [OANotification] from JSON.
   OANotification.fromJson(Map<String, dynamic> json) {
     notificationName = json['notificationName'];
     notificationFaceURL = json['notificationFaceURL'];
@@ -58,59 +62,55 @@ class OANotification {
     text = json['text'];
     externalUrl = json['externalUrl'];
     mixType = json['mixType'];
-    pictureElem = json['pictureElem'] != null
-        ? PictureElem.fromJson(json['pictureElem'])
-        : null;
-    soundElem = json['soundElem'] != null
-        ? SoundElem.fromJson(json['soundElem'])
-        : null;
-    videoElem = json['videoElem'] != null
-        ? VideoElem.fromJson(json['videoElem'])
-        : null;
-    fileElem =
-        json['fileElem'] != null ? FileElem.fromJson(json['fileElem']) : null;
+    pictureElem = json['pictureElem'] != null ? PictureElem.fromJson(json['pictureElem']) : null;
+    soundElem = json['soundElem'] != null ? SoundElem.fromJson(json['soundElem']) : null;
+    videoElem = json['videoElem'] != null ? VideoElem.fromJson(json['videoElem']) : null;
+    fileElem = json['fileElem'] != null ? FileElem.fromJson(json['fileElem']) : null;
     ex = json['ex'];
   }
 
+  /// Converts the instance of [OANotification] to JSON.
   Map<String, dynamic> toJson() {
-    final data = Map<String, dynamic>();
-    data['notificationName'] = this.notificationName;
-    data['notificationFaceURL'] = this.notificationFaceURL;
-    data['notificationType'] = this.notificationType;
-    data['text'] = this.text;
-    data['externalUrl'] = this.externalUrl;
-    data['mixType'] = this.mixType;
-    if (this.pictureElem != null) {
-      data['pictureElem'] = this.pictureElem!.toJson();
+    final data = <String, dynamic>{};
+    data['notificationName'] = notificationName;
+    data['notificationFaceURL'] = notificationFaceURL;
+    data['notificationType'] = notificationType;
+    data['text'] = text;
+    data['externalUrl'] = externalUrl;
+    data['mixType'] = mixType;
+
+    if (pictureElem != null) {
+      data['pictureElem'] = pictureElem!.toJson();
     }
-    if (this.soundElem != null) {
-      data['soundElem'] = this.soundElem!.toJson();
+    if (soundElem != null) {
+      data['soundElem'] = soundElem!.toJson();
     }
-    if (this.videoElem != null) {
-      data['videoElem'] = this.videoElem!.toJson();
+    if (videoElem != null) {
+      data['videoElem'] = videoElem!.toJson();
     }
-    if (this.fileElem != null) {
-      data['fileElem'] = this.fileElem!.toJson();
+    if (fileElem != null) {
+      data['fileElem'] = fileElem!.toJson();
     }
-    data['ex'] = this.ex;
+    data['ex'] = ex;
     return data;
   }
 }
 
-/// 群事件通知
+/// Represents a group notification.
 class GroupNotification {
-  /// 群信息
+  /// Information about the group.
   GroupInfo? group;
 
-  /// 当前事件操作者信息
+  /// Information about the user who performed the action.
   GroupMembersInfo? opUser;
 
-  /// 群拥有者信息
+  /// Information about the owner of the group.
   GroupMembersInfo? groupOwnerUser;
 
-  /// 产生影响的群成员列表
+  /// List of group members affected by the event.
   List<GroupMembersInfo>? memberList;
 
+  /// Constructor for [GroupNotification].
   GroupNotification({
     this.group,
     this.opUser,
@@ -118,239 +118,227 @@ class GroupNotification {
     this.memberList,
   });
 
+  /// Creates an instance of [GroupNotification] from JSON.
   GroupNotification.fromJson(Map<String, dynamic> json) {
     group = json['group'] != null ? GroupInfo.fromJson(json['group']) : null;
-    opUser = json['opUser'] != null
-        ? GroupMembersInfo.fromJson(json['opUser'])
-        : null;
-    groupOwnerUser = json['groupOwnerUser'] != null
-        ? GroupMembersInfo.fromJson(json['groupOwnerUser'])
-        : null;
-    if (json['memberList'] != null) {
-      memberList = <GroupMembersInfo>[];
-      json['memberList'].forEach((v) {
-        memberList!.add(GroupMembersInfo.fromJson(v));
-      });
-    }
+    opUser = json['opUser'] != null ? GroupMembersInfo.fromJson(json['opUser']) : null;
+    groupOwnerUser = json['groupOwnerUser'] != null ? GroupMembersInfo.fromJson(json['groupOwnerUser']) : null;
+    memberList = (json['memberList'] as List?)?.map((v) => GroupMembersInfo.fromJson(v)).toList();
   }
 
+  /// Converts the instance of [GroupNotification] to JSON.
   Map<String, dynamic> toJson() {
-    final data = Map<String, dynamic>();
-    if (this.group != null) {
-      data['group'] = this.group!.toJson();
+    final data = <String, dynamic>{};
+    if (group != null) {
+      data['group'] = group!.toJson();
     }
-    if (this.opUser != null) {
-      data['opUser'] = this.opUser!.toJson();
+    if (opUser != null) {
+      data['opUser'] = opUser!.toJson();
     }
-    if (this.groupOwnerUser != null) {
-      data['groupOwnerUser'] = this.groupOwnerUser!.toJson();
+    if (groupOwnerUser != null) {
+      data['groupOwnerUser'] = groupOwnerUser!.toJson();
     }
-    if (this.memberList != null) {
-      data['memberList'] = this.memberList!.map((v) => v.toJson()).toList();
-    }
+
+    data['memberList'] = memberList?.map((v) => v.toJson()).toList();
+
     return data;
   }
 }
 
-/// 用户被邀请进群通知
+/// Represents a notification for a user invited to join a group.
 class InvitedJoinGroupNotification {
-  /// 群信息
+  /// Information about the group.
   GroupInfo? group;
 
-  /// 操作者信息
+  /// Information about the user who invited the member.
   GroupMembersInfo? opUser;
 
-  /// 被邀请进群的成员信息
+  /// List of users invited to the group.
   List<GroupMembersInfo>? invitedUserList;
 
+  /// Constructor for [InvitedJoinGroupNotification].
   InvitedJoinGroupNotification({this.group, this.opUser, this.invitedUserList});
 
+  /// Creates an instance of [InvitedJoinGroupNotification] from JSON.
   InvitedJoinGroupNotification.fromJson(Map<String, dynamic> json) {
     group = json['group'] != null ? GroupInfo.fromJson(json['group']) : null;
-    opUser = json['opUser'] != null
-        ? GroupMembersInfo.fromJson(json['opUser'])
-        : null;
-    if (json['invitedUserList'] != null) {
-      invitedUserList = <GroupMembersInfo>[];
-      json['invitedUserList'].forEach((v) {
-        invitedUserList!.add(GroupMembersInfo.fromJson(v));
-      });
-    }
+    opUser = json['opUser'] != null ? GroupMembersInfo.fromJson(json['opUser']) : null;
+
+    invitedUserList = (json['invitedUserList'] as List?)?.map((v) => GroupMembersInfo.fromJson(v)).toList();
   }
 
+  /// Converts the instance of [InvitedJoinGroupNotification] to JSON.
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.group != null) {
-      data['group'] = this.group!.toJson();
+    final data = <String, dynamic>{};
+    if (group != null) {
+      data['group'] = group!.toJson();
     }
-    if (this.opUser != null) {
-      data['opUser'] = this.opUser!.toJson();
+    if (opUser != null) {
+      data['opUser'] = opUser!.toJson();
     }
-    if (this.invitedUserList != null) {
-      data['invitedUserList'] =
-          this.invitedUserList!.map((v) => v.toJson()).toList();
+    if (invitedUserList != null) {
+      data['invitedUserList'] = invitedUserList!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-/// 组踢出成员通知
-class KickedGroupMemeberNotification {
-  /// 群信息
+/// Represents a notification for a member kicked out of a group.
+class KickedGroupMemberNotification {
+  /// Information about the group.
   GroupInfo? group;
 
-  /// 操作者信息
+  /// Information about the user who performed the kick.
   GroupMembersInfo? opUser;
 
-  /// 被踢出群的成员信息列表
+  /// List of users who were kicked from the group.
   List<GroupMembersInfo>? kickedUserList;
 
-  KickedGroupMemeberNotification(
-      {this.group, this.opUser, this.kickedUserList});
+  /// Constructor for [KickedGroupMemberNotification].
+  KickedGroupMemberNotification({this.group, this.opUser, this.kickedUserList});
 
-  KickedGroupMemeberNotification.fromJson(Map<String, dynamic> json) {
+  /// Creates an instance of [KickedGroupMemberNotification] from JSON.
+  KickedGroupMemberNotification.fromJson(Map<String, dynamic> json) {
     group = json['group'] != null ? GroupInfo.fromJson(json['group']) : null;
-    opUser = json['opUser'] != null
-        ? GroupMembersInfo.fromJson(json['opUser'])
-        : null;
+    opUser = json['opUser'] != null ? GroupMembersInfo.fromJson(json['opUser']) : null;
+
     if (json['kickedUserList'] != null) {
-      kickedUserList = <GroupMembersInfo>[];
-      json['kickedUserList'].forEach((v) {
-        kickedUserList!.add(GroupMembersInfo.fromJson(v));
-      });
+      kickedUserList = (json['kickedUserList'] as List).map((v) => GroupMembersInfo.fromJson(v)).toList();
     }
   }
 
+  /// Converts the instance of [KickedGroupMemberNotification] to JSON.
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.group != null) {
-      data['group'] = this.group!.toJson();
+    final data = <String, dynamic>{};
+    if (group != null) {
+      data['group'] = group!.toJson();
     }
-    if (this.opUser != null) {
-      data['opUser'] = this.opUser!.toJson();
+    if (opUser != null) {
+      data['opUser'] = opUser!.toJson();
     }
-    if (this.kickedUserList != null) {
-      data['kickedUserList'] =
-          this.kickedUserList!.map((v) => v.toJson()).toList();
+    if (kickedUserList != null) {
+      data['kickedUserList'] = kickedUserList!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-/// 退出群通知
+/// Represents a notification for a user quitting a group.
 class QuitGroupNotification {
-  /// 群信息
+  /// Information about the group.
   GroupInfo? group;
 
-  /// 退群的成员信息
+  /// Information about the user who quit the group.
   GroupMembersInfo? quitUser;
 
+  /// Constructor for [QuitGroupNotification].
   QuitGroupNotification({this.group, this.quitUser});
 
+  /// Creates an instance of [QuitGroupNotification] from JSON.
   QuitGroupNotification.fromJson(Map<String, dynamic> json) {
     group = json['group'] != null ? GroupInfo.fromJson(json['group']) : null;
-    quitUser = json['quitUser'] != null
-        ? GroupMembersInfo.fromJson(json['quitUser'])
-        : null;
+    quitUser = json['quitUser'] != null ? GroupMembersInfo.fromJson(json['quitUser']) : null;
   }
 
+  /// Converts the instance of [QuitGroupNotification] to JSON.
   Map<String, dynamic> toJson() {
-    final data = Map<String, dynamic>();
-    if (this.group != null) {
-      data['group'] = this.group!.toJson();
+    final data = <String, dynamic>{};
+    if (group != null) {
+      data['group'] = group!.toJson();
     }
-    if (this.quitUser != null) {
-      data['quitUser'] = this.quitUser!.toJson();
+    if (quitUser != null) {
+      data['quitUser'] = quitUser!.toJson();
     }
     return data;
   }
 }
 
-/// 进群通知
+/// Notification for a user entering a group.
 class EnterGroupNotification {
-  /// 群信息
+  /// Group information.
   GroupInfo? group;
 
-  /// 进入群的成员信息
+  /// Information about the member entering the group.
   GroupMembersInfo? entrantUser;
 
+  /// Constructor for [EnterGroupNotification].
   EnterGroupNotification({this.group, this.entrantUser});
 
+  /// Creates an instance of [EnterGroupNotification] from JSON.
   EnterGroupNotification.fromJson(Map<String, dynamic> json) {
     group = json['group'] != null ? GroupInfo.fromJson(json['group']) : null;
-    entrantUser = json['entrantUser'] != null
-        ? GroupMembersInfo.fromJson(json['entrantUser'])
-        : null;
+    entrantUser = json['entrantUser'] != null ? GroupMembersInfo.fromJson(json['entrantUser']) : null;
   }
 
+  /// Converts the instance of [EnterGroupNotification] to JSON.
   Map<String, dynamic> toJson() {
-    final data = Map<String, dynamic>();
-    if (this.group != null) {
-      data['group'] = this.group!.toJson();
+    final data = <String, dynamic>{};
+    if (group != null) {
+      data['group'] = group!.toJson();
     }
-    if (this.entrantUser != null) {
-      data['quitUser'] = this.entrantUser!.toJson();
+    if (entrantUser != null) {
+      data['entrantUser'] = entrantUser!.toJson();
     }
     return data;
   }
 }
 
-/// 群权转让通知
-class GroupRightsTransferNoticication {
-  /// 群信息
+/// Notification for the transfer of group rights.
+class GroupRightsTransferNotification {
+  /// Group information.
   GroupInfo? group;
 
-  /// 操作者信息
+  /// Operator's information.
   GroupMembersInfo? opUser;
 
-  /// 群新的拥有者信息
+  /// New group owner's information.
   GroupMembersInfo? newGroupOwner;
 
-  GroupRightsTransferNoticication({
+  /// Constructor for [GroupRightsTransferNotification].
+  GroupRightsTransferNotification({
     this.group,
     this.opUser,
     this.newGroupOwner,
   });
 
-  GroupRightsTransferNoticication.fromJson(Map<String, dynamic> json) {
+  /// Creates an instance of [GroupRightsTransferNotification] from JSON.
+  GroupRightsTransferNotification.fromJson(Map<String, dynamic> json) {
     group = json['group'] != null ? GroupInfo.fromJson(json['group']) : null;
-    opUser = json['opUser'] != null
-        ? GroupMembersInfo.fromJson(json['opUser'])
-        : null;
-    newGroupOwner = json['newGroupOwner'] != null
-        ? GroupMembersInfo.fromJson(json['newGroupOwner'])
-        : null;
+    opUser = json['opUser'] != null ? GroupMembersInfo.fromJson(json['opUser']) : null;
+    newGroupOwner = json['newGroupOwner'] != null ? GroupMembersInfo.fromJson(json['newGroupOwner']) : null;
   }
 
+  /// Converts the instance of [GroupRightsTransferNotification] to JSON.
   Map<String, dynamic> toJson() {
-    final data = Map<String, dynamic>();
-    if (this.group != null) {
-      data['group'] = this.group!.toJson();
+    final data = <String, dynamic>{};
+    if (group != null) {
+      data['group'] = group!.toJson();
     }
-    if (this.opUser != null) {
-      data['opUser'] = this.opUser!.toJson();
+    if (opUser != null) {
+      data['opUser'] = opUser!.toJson();
     }
-    if (this.newGroupOwner != null) {
-      data['newGroupOwner'] = this.newGroupOwner!.toJson();
+    if (newGroupOwner != null) {
+      data['newGroupOwner'] = newGroupOwner!.toJson();
     }
     return data;
   }
 }
 
-/// 禁言成员通知
+/// Notification for muting a member.
 class MuteMemberNotification {
-  /// 群信息
+  /// Group information.
   GroupInfo? group;
 
-  /// 操作者信息
+  /// Operator's information.
   GroupMembersInfo? opUser;
 
-  /// 被禁言的成员信息
+  /// Information about the muted member.
   GroupMembersInfo? mutedUser;
 
-  /// 禁言时间s
+  /// Duration of the mute in seconds.
   int? mutedSeconds;
 
+  /// Constructor for [MuteMemberNotification].
   MuteMemberNotification({
     this.group,
     this.opUser,
@@ -358,98 +346,99 @@ class MuteMemberNotification {
     this.mutedSeconds,
   });
 
+  /// Creates an instance of [MuteMemberNotification] from JSON.
   MuteMemberNotification.fromJson(Map<String, dynamic> json) {
     group = json['group'] != null ? GroupInfo.fromJson(json['group']) : null;
-    opUser = json['opUser'] != null
-        ? GroupMembersInfo.fromJson(json['opUser'])
-        : null;
-    mutedUser = json['mutedUser'] != null
-        ? GroupMembersInfo.fromJson(json['mutedUser'])
-        : null;
+    opUser = json['opUser'] != null ? GroupMembersInfo.fromJson(json['opUser']) : null;
+    mutedUser = json['mutedUser'] != null ? GroupMembersInfo.fromJson(json['mutedUser']) : null;
     mutedSeconds = json['mutedSeconds'];
   }
 
+  /// Converts the instance of [MuteMemberNotification] to JSON.
   Map<String, dynamic> toJson() {
-    final data = Map<String, dynamic>();
-    if (this.group != null) {
-      data['group'] = this.group!.toJson();
+    final data = <String, dynamic>{};
+    if (group != null) {
+      data['group'] = group!.toJson();
     }
-    if (this.opUser != null) {
-      data['opUser'] = this.opUser!.toJson();
+    if (opUser != null) {
+      data['opUser'] = opUser!.toJson();
     }
-    if (this.mutedUser != null) {
-      data['mutedUser'] = this.mutedUser!.toJson();
+    if (mutedUser != null) {
+      data['mutedUser'] = mutedUser!.toJson();
     }
-    data['mutedSeconds'] = this.mutedSeconds;
+    data['mutedSeconds'] = mutedSeconds;
     return data;
   }
 }
 
-/// 阅后即焚通知
+/// Notification for a burn-after-reading message setting.
 class BurnAfterReadingNotification {
-  /// 接收者
+  /// Receiver's ID.
   String? recvID;
 
-  /// 发送者
+  /// Sender's ID.
   String? sendID;
 
-  /// 是否开启
+  /// Whether the setting is private.
   bool? isPrivate;
 
+  /// Constructor for [BurnAfterReadingNotification].
   BurnAfterReadingNotification({this.recvID, this.sendID, this.isPrivate});
 
+  /// Creates an instance of [BurnAfterReadingNotification] from JSON.
   BurnAfterReadingNotification.fromJson(Map<String, dynamic> json) {
     recvID = json['recvID'];
     sendID = json['sendID'];
     isPrivate = json['isPrivate'];
   }
 
+  /// Converts the instance of [BurnAfterReadingNotification] to JSON.
   Map<String, dynamic> toJson() {
-    final data = Map<String, dynamic>();
-    data['recvID'] = this.recvID;
-    data['sendID'] = this.sendID;
-    data['isPrivate'] = this.isPrivate;
+    final data = <String, dynamic>{
+      'recvID': recvID,
+      'sendID': sendID,
+      'isPrivate': isPrivate,
+    };
     return data;
   }
 }
 
-/// 群成员信息发送变化通知
+/// Notification for changes in group member information.
 class GroupMemberInfoChangedNotification {
-  /// 群信息
+  /// Group information.
   GroupInfo? group;
 
-  /// 操作者信息
+  /// Operator's information.
   GroupMembersInfo? opUser;
 
-  /// 资料发生改变的成员
+  /// Member whose information has changed.
   GroupMembersInfo? changedUser;
 
+  /// Constructor for [GroupMemberInfoChangedNotification].
   GroupMemberInfoChangedNotification({
     this.group,
     this.opUser,
     this.changedUser,
   });
 
+  /// Creates an instance of [GroupMemberInfoChangedNotification] from JSON.
   GroupMemberInfoChangedNotification.fromJson(Map<String, dynamic> json) {
     group = json['group'] != null ? GroupInfo.fromJson(json['group']) : null;
-    opUser = json['opUser'] != null
-        ? GroupMembersInfo.fromJson(json['opUser'])
-        : null;
-    changedUser = json['changedUser'] != null
-        ? GroupMembersInfo.fromJson(json['changedUser'])
-        : null;
+    opUser = json['opUser'] != null ? GroupMembersInfo.fromJson(json['opUser']) : null;
+    changedUser = json['changedUser'] != null ? GroupMembersInfo.fromJson(json['changedUser']) : null;
   }
 
+  /// Converts the instance of [GroupMemberInfoChangedNotification] to JSON.
   Map<String, dynamic> toJson() {
-    final data = Map<String, dynamic>();
-    if (this.group != null) {
-      data['group'] = this.group!.toJson();
+    final data = <String, dynamic>{};
+    if (group != null) {
+      data['group'] = group!.toJson();
     }
-    if (this.opUser != null) {
-      data['opUser'] = this.opUser!.toJson();
+    if (opUser != null) {
+      data['opUser'] = opUser!.toJson();
     }
-    if (this.changedUser != null) {
-      data['changedUser'] = this.changedUser!.toJson();
+    if (changedUser != null) {
+      data['changedUser'] = changedUser!.toJson();
     }
     return data;
   }

@@ -149,9 +149,6 @@ class ConversationInfo {
   // Check if it's a group chat
   bool get isGroupChat => conversationType == ConversationType.group || conversationType == ConversationType.superGroup;
 
-  // Check if it's a valid conversation (not in a group if isNotInGroup is true)
-  bool get isValid => isSingleChat || (isGroupChat && !isNotInGroup!);
-
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

@@ -101,26 +101,20 @@ enum LoginStatus {
 
 /// Enum representing log levels
 enum Loglevel {
-  /// No logs
-  none(0),
+  /// Panic level logging
+  panic(0),
 
-  /// Debug level logging
-  debug(1),
-
-  /// Informational level logging
-  info(2),
+  /// Error level logging
+  error(2),
 
   /// Warning level logging
   warning(3),
 
-  /// Error level logging
-  error(4),
+  /// Informational level logging
+  info(4),
 
-  /// Fatal level logging
-  fatal(5),
-
-  /// Verbose logging
-  verbose(6);
+  /// Debug level logging
+  debug(5);
 
   /// The numeric value representing this log level
   final int rawValue;
@@ -450,13 +444,21 @@ enum ReceiveMessageOpt {
 }
 
 enum GroupAtType {
-  atNormal(0), // Cancel all hints, equivalent to calling resetConversationGroupAtType
-  atMe(1), // @ me hint
-  atAll(2), // @ all hint
-  atAllAtMe(3), // @ all and @ me hint
-  groupNotification(4); // Group notification hint
+  /// Cancel all hints, equivalent to calling resetConversationGroupAtType
+  atNormal(0),
 
-  // Value associated with each option
+  /// @ me hint
+  atMe(1),
+
+  /// @ all hint
+  atAll(2),
+
+  /// @ all and @ me hint
+  atAllAtMe(3),
+
+  /// Group notification hint
+  groupNotification(4);
+
   final int rawValue;
 
   const GroupAtType(this.rawValue);
