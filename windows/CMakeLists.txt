@@ -19,5 +19,6 @@ set(open_im_sdk_bundled_libraries
   # Defined in ../src/CMakeLists.txt.
   # This can be changed to accommodate different builds.
   $<TARGET_FILE:open_im_sdk>
+  "${CMAKE_CURRENT_SOURCE_DIR}/libopenimsdk.dll"
   PARENT_SCOPE
 )
