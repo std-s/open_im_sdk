@@ -1,5 +1,7 @@
-#define login custom_login
-#define logout custom_logout
+#ifdef __APPLE__
+#define login hide_login
+#define logout hide_logout
+#endif
 
 #include "openimsdk.h"
 

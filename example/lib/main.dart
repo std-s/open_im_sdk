@@ -24,8 +24,8 @@ class _MyAppState extends State<MyApp> {
 
     getApplicationDocumentsDirectory().then((dic) {
       final params = InitConfig(
-        apiAddr: 'http://172.16.8.48:10002',
-        wsAddr: 'ws://172.16.8.48:10001',
+        apiAddr: 'http://172.16.8.135:10002',
+        wsAddr: 'ws://172.16.8.135:10001',
         dataDir: dic.path,
         logFilePath: '${dic.path}/log',
       );
@@ -189,8 +189,8 @@ class _MyAppState extends State<MyApp> {
           IMManager()
               .connection
               .login(
-                '7366504584',
-                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI3MzY2NTA0NTg0IiwiUGxhdGZvcm1JRCI6MiwiZXhwIjoxNzM2NDA0NjUzLCJuYmYiOjE3Mjg2MjgzNTMsImlhdCI6MTcyODYyODY1M30.wff9CXrYbM5KwiI2UWdZAKNo8MYWFkzBFVQ8QhOsJZA',
+                'test1',
+                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJ0ZXN0MSIsIlBsYXRmb3JtSUQiOjEsImV4cCI6MTczNjc1MDQ5OCwibmJmIjoxNzI4OTc0MTk4LCJpYXQiOjE3Mjg5NzQ0OTh9.QA_daNo0PWLeF_nc_wpKgQ7pZhJkaDhVYWFLhtvuCqc',
               )
               .onError((error, s) {
             if (error is IMSDKError) {
@@ -228,7 +228,7 @@ class _MyAppState extends State<MyApp> {
               .sendMessage(
                 message: message,
                 offlinePushInfo: OfflinePushInfo(title: 'test message', desc: 'test message desc'),
-                userID: '3615402097',
+                userID: '5887278043',
               )
               .onError((error, s) {
             if (error is IMSDKError) {

@@ -27,10 +27,13 @@ class Utils {
       ffi.Pointer<ffi.Char> errorMsg,
       ffi.Pointer<ffi.Char> data,
     ) {
+      final dartOperationID = operationID.toDartString();
+
       if (errorCode > 0) {
-        debugPrint(
-            'Native CBSISS return failed: ${operationID.toDartString()}, $errorCode, ${errorMsg.toDartString()}');
-        onError.call(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsg.toDartString()));
+        final errorMsgString = errorMsg.toDartString();
+
+        debugPrint('Native CBSISS return failed: $dartOperationID, $errorCode, $errorMsgString');
+        onError.call(IMSDKError(SDKErrorCode.fromValue(errorCode), errorMsgString));
 
         if (errorMsg != ffi.nullptr) {
           calloc.free(errorMsg);
@@ -38,8 +41,7 @@ class Utils {
       } else {
         final dataString = data.toDartString();
 
-        debugPrint(
-            'Native CBSISS return success: ${operationID.toDartString()}, $errorCode, $dataString[${dataString.length}]');
+        debugPrint('Native CBSISS return success: $dartOperationID, $errorCode, $dataString[${dataString.length}]');
 
         if (dataString.isNotEmpty) {
           final json = jsonDecode(dataString);
@@ -51,7 +53,10 @@ class Utils {
         }
       }
 
-      calloc.free(operationID);
+      if (operationID != ffi.nullptr) {
+        calloc.free(operationID);
+      }
+
       callback.close();
     }
 
@@ -101,7 +106,9 @@ class Utils {
         }
       }
 
-      calloc.free(operationID);
+      if (operationID != ffi.nullptr) {
+        calloc.free(operationID);
+      }
       callback.close();
     }
 
@@ -123,19 +130,4 @@ extension IMPointerStringExt on ffi.Pointer<ffi.Char> {
 
     return cast<Utf8>().toDartString();
   }
-
-  // String toDartString() {
-  //   if (this == ffi.nullptr) {
-  //     return ''; // Handle null pointer
-  //   }
-  //
-  //   int length = 0;
-  //   while (elementAt(length).value != 0) {
-  //     length++;
-  //   }
-  //
-  //   final List<int> codeUnits = List<int>.generate(length, (index) => elementAt(index).value);
-  //
-  //   return String.fromCharCodes(codeUnits);
-  // }
 }

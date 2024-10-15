@@ -1800,13 +1800,13 @@ class OpenImSdkBindings {
   late final _un_init_sdk =
       _un_init_sdkPtr.asFunction<void Function(ffi.Pointer<ffi.Char>)>();
 
-  void custom_login(
+  void hide_login(
     CB_S_I_S_S cCallback,
     ffi.Pointer<ffi.Char> operationID,
     ffi.Pointer<ffi.Char> uid,
     ffi.Pointer<ffi.Char> token,
   ) {
-    return _custom_login(
+    return _hide_login(
       cCallback,
       operationID,
       uid,
@@ -1814,29 +1814,28 @@ class OpenImSdkBindings {
     );
   }
 
-  late final _custom_loginPtr = _lookup<
+  late final _hide_loginPtr = _lookup<
       ffi.NativeFunction<
           ffi.Void Function(CB_S_I_S_S, ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>>('custom_login');
-  late final _custom_login = _custom_loginPtr.asFunction<
+              ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>>('hide_login');
+  late final _hide_login = _hide_loginPtr.asFunction<
       void Function(CB_S_I_S_S, ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>,
           ffi.Pointer<ffi.Char>)>();
 
-  void custom_logout(
+  void hide_logout(
     CB_S_I_S_S cCallback,
     ffi.Pointer<ffi.Char> operationID,
   ) {
-    return _custom_logout(
+    return _hide_logout(
       cCallback,
       operationID,
     );
   }
 
-  late final _custom_logoutPtr = _lookup<
+  late final _hide_logoutPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Void Function(
-              CB_S_I_S_S, ffi.Pointer<ffi.Char>)>>('custom_logout');
-  late final _custom_logout = _custom_logoutPtr
+          ffi.Void Function(CB_S_I_S_S, ffi.Pointer<ffi.Char>)>>('hide_logout');
+  late final _hide_logout = _hide_logoutPtr
       .asFunction<void Function(CB_S_I_S_S, ffi.Pointer<ffi.Char>)>();
 
   void im_login(
