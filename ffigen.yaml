@@ -11,8 +11,8 @@ output: 'lib/open_im_sdk_bindings_generated.dart'
 headers:
   entry-points:
     - 'src/open_im_sdk.h'
-#  include-directives:
-#    - 'src/open_im_sdk.h'
+  # include-directives:
+  #   - 'src/open_im_sdk.h'
 preamble: |
   // ignore_for_file: always_specify_types
   // ignore_for_file: camel_case_types
