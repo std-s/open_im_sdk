@@ -331,6 +331,18 @@ class _MyAppState extends State<MyApp> {
           });
           print('deleteFriend result: $res');
         }),
+        _buildWrapItem('DeleteConversation', () async {
+          final res = await IMManager()
+              .conversation
+              .deleteConversationAndDeleteAllMsg(conversationID: 'si_5887278043_test1')
+              .catchError((error, s) {
+            if (error is IMSDKError) {
+              debugPrint(error.message);
+            }
+            return false;
+          });
+          print('deleteConversation result: $res');
+        }),
       ],
     );
   }

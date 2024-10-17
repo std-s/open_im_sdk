@@ -47,8 +47,17 @@ class Utils {
         debugPrint('Native CBSISS return success: $dartOperationID, $errorCode, $dataString[${dataString.length}]');
 
         if (dataString.isNotEmpty) {
+          onSuccess
+              .call(dataString.startsWith('{') || dataString.startsWith('[') ? jsonDecode(dataString) : dataString);
+        } else {
+          onSuccess.call(dataString);
+        }
+
+        try {
           final json = jsonDecode(dataString);
           onSuccess.call(json);
+        } catch (e) {
+          onSuccess.call(dataString);
         }
 
         if (data != ffi.nullptr) {
