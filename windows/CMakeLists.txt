@@ -8,6 +8,13 @@ cmake_minimum_required(VERSION 3.14)
 set(PROJECT_NAME "open_im_sdk")
 project(${PROJECT_NAME} LANGUAGES CXX)
 
+# Detect if the target is 32-bit or 64-bit.
+if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+    set(TARGET_ARCH "x64")
+else()
+    set(TARGET_ARCH "x86")
+endif()
+
 # Invoke the build for native code shared with the other target platforms.
 # This can be changed to accommodate different builds.
 add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/../src" "${CMAKE_CURRENT_BINARY_DIR}/shared")
@@ -19,6 +26,6 @@ set(open_im_sdk_bundled_libraries
   # Defined in ../src/CMakeLists.txt.
   # This can be changed to accommodate different builds.
   $<TARGET_FILE:open_im_sdk>
-  "${CMAKE_CURRENT_SOURCE_DIR}/libopenimsdk.dll"
+  "${TARGET_ARCH}/libopenimsdk.dll"
   PARENT_SCOPE
 )
